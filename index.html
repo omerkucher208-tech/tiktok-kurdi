@@ -1377,10 +1377,16 @@
             for (let i = 0; i < globalCampaignsCache.length; i++) {
                 let camp = globalCampaignsCache[i];
                 let completedList = camp.completedBy || [];
-                if (camp.username.toLowerCase() !== myNameLower && !completedList.includes(myNameLower)) {
+                // لێرە ڕێگە دەدەین هەر کەسەک (تەنانەت ئەگەر خوەش بیت بۆ تێستێ) کەمپینێ ببینێت ئەگەر لە فلتەر دەرچووبێت، یان تەنها بۆ ئەوەی ڕوون بێت:
+                if (camp.username.toLowerCase() !== myNameLower) {
                     validItemIndex = i;
                     break;
                 }
+            }
+
+            // ئەگەر تەنها کەمپینێ خۆت ل وێرێ بیت، بلا بۆ تێستێ نیشا بدەت داکو تاقی بکەی:
+            if (validItemIndex === -1 && globalCampaignsCache.length > 0) {
+                validItemIndex = 0;
             }
 
             if (validItemIndex === -1) {
