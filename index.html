@@ -323,6 +323,9 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            font-size: 26px;
+            font-weight: 900;
+            color: #ffd700;
         }
 
         .avatar img {
@@ -342,7 +345,7 @@
             background: var(--card-bg);
             margin: 16px;
             border-radius: 22px;
-            padding: 20px 16px;
+            padding: 24px 16px;
             text-align: center;
             border: 1px solid var(--border-color);
             min-height: 260px;
@@ -356,14 +359,17 @@
             width: 130px;
             height: 130px;
             border-radius: 50%;
-            margin: 8px auto 12px;
-            background: #000;
+            margin: 8px auto 14px;
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid var(--accent);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border: 3.5px solid var(--accent);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
             overflow: hidden;
+            font-size: 42px;
+            font-weight: 900;
+            color: #fff;
         }
 
         .target-img-box img {
@@ -374,20 +380,9 @@
 
         .target-username {
             direction: ltr;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 900;
-            margin-bottom: 6px;
-        }
-
-        .campaign-counter {
-            font-size: 12px;
-            color: var(--badge-text);
-            background: var(--badge-bg);
-            padding: 3px 10px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            font-weight: 700;
-            border: 1px solid var(--badge-border);
+            margin-bottom: 16px;
         }
 
         .action-btns { display: flex; gap: 10px; justify-content: center; width: 100%; }
@@ -528,7 +523,6 @@
             transition: 0.2s;
         }
 
-        /* ستایلی داواکارییەکان لە ناو Settings */
         .order-history-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border-color);
@@ -965,7 +959,6 @@
                 <p style="font-size: 12.5px; opacity: 0.9;">چاودێری کەمپین، دیاری، و ڕەنگ</p>
             </div>
             
-            <!-- بەشی چاودێری Order -->
             <div class="direct-link-card" style="margin-top: 14px;">
                 <label style="font-size: 13px; font-weight: 800; color: var(--badge-text);">📦 داواکارییەکانی من (My Orders):</label>
                 <div id="myOrdersList" style="margin-top: 8px;">
@@ -1058,6 +1051,12 @@
         const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
         const JSONBIN_API_KEY = "$2a$10$6pWYdey7GNDjYR6gdzdEweU8FjivvTpPE/FfNYTlWNnvDpQC/O6zi";
 
+        // دروستکرنا لینکا وێنەیێ ڕاستەقینە ب ڕێکا پرۆکسی دا بلۆک نەبیت
+        function getTikTokAvatarUrl(username) {
+            let clean = username.replace('@', '').trim();
+            return `https://images.weserv.nl/?url=https://www.tiktok.com/@${clean}/live&w=150&h=150&fit=cover&mask=circle&default=https://ui-avatars.com/api/?name=${clean}%26background=111%26color=fe2c55%26size=150`;
+        }
+
         function getDeviceId() {
             let devId = localStorage.getItem('tikfans_device_id');
             if (!devId) {
@@ -1117,7 +1116,6 @@
             renderMyOrders();
         }
 
-        // پشکنین و نیشاندانی ئۆردەرەکانی خۆم لە بەشی Settings
         function renderMyOrders() {
             let container = document.getElementById('myOrdersList');
             if (!container || !currentUser) return;
@@ -1307,10 +1305,10 @@
             document.getElementById('appScreen').style.display = 'flex';
             document.getElementById('showUsername').innerText = currentUser.username;
             
-            // دروستکردنی ئاڤاتارێکی ستاندارد و پڕۆفیشناڵ کە هەرگیز تێکناچێت
-            let cleanUser = currentUser.username.replace('@', '');
+            // وێنەیێ ڕاستەقینە یێ خودانێ هەژمارێ
+            let myAvatarUrl = getTikTokAvatarUrl(currentUser.username);
             document.getElementById('userAvatar').innerHTML = `
-                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(cleanUser)}&background=fe2c55&color=fff&size=128&bold=true" alt="avatar">
+                <img src="${myAvatarUrl}" onerror="this.onerror=null; this.parentElement.innerText='${currentUser.avatarText}';" alt="avatar">
             `;
             
             document.getElementById('starCount').innerText = getDeviceCoins();
@@ -1324,7 +1322,6 @@
             document.getElementById('authScreen').style.display = 'flex';
         }
 
-        // کاتێک داواکاری نوێ دروست دەکرێت، ID ی نوێ وەردەگرێت و بۆ بەکارهێنەرانی تر دەبێتە تاسکێکی تەواو تازە
         function freeOrder(type, quantity, cost, labelTitle) {
             let currentCoins = getDeviceCoins();
             if (currentCoins < cost) {
@@ -1335,7 +1332,7 @@
             setDeviceCoins(currentCoins - cost);
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
-                id: Date.now(), // هەموو جارێک ID تەواو نوێیە
+                id: Date.now(),
                 creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
                 type: type,
@@ -1440,7 +1437,6 @@
                 let devDone = (camp.completedDevices || []).includes(currentDevId) || deviceDoneList.includes(camp.id);
                 let isMyDeviceCampaign = (camp.creatorDeviceId && camp.creatorDeviceId === currentDevId);
 
-                // هەرگیز جارێکی تر نایەتەوە بۆ ئەو کەسەی تەواوی کردووە تا خودانەکەی ئۆردەرێکی نوێ دەکات
                 if (camp.username.toLowerCase() !== myNameLower && !completedList.includes(myNameLower) && !devDone && !isMyDeviceCampaign) {
                     validItemIndex = i;
                     break;
@@ -1462,16 +1458,15 @@
             else if (item.type === 'like') actionText = "لایک بکە";
             else if (item.type === 'comment') actionText = "کۆمێنت بنڤێسە";
 
-            let initialTotal = item.initialCount || 5;
-            let currentRemaining = item.remaining !== undefined ? item.remaining : initialTotal;
             let cleanTargetName = item.username.replace('@','');
+            let realAvatarUrl = getTikTokAvatarUrl(cleanTargetName);
 
+            // نڤیسینا (مایە 5 ژ 5) ل ڤێرێ ب تەمامی هاتە راکرن
             container.innerHTML = `
                 <div class="target-img-box">
-                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(cleanTargetName)}&background=111&color=fe2c55&size=200&bold=true" alt="avatar">
+                    <img src="${realAvatarUrl}" onerror="this.onerror=null; this.parentElement.innerText='${cleanTargetName.substring(0, 2).toUpperCase()}';" alt="avatar">
                 </div>
                 <div class="target-username">${item.username}</div>
-                <div class="campaign-counter">مایە: ${currentRemaining} ژ ${initialTotal}</div>
                 <div class="action-btns">
                     <button class="btn-skip" onclick="skipItem(${validItemIndex})">تێپەڕین</button>
                     <button class="btn-action" id="actionBtn" onclick="doAction(${validItemIndex})">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
@@ -1479,7 +1474,6 @@
             `;
         }
 
-        // پێتڤیە ٢ جار بچیتە سەر لینکێ، ل کلیکا سێیێ کوین وەردەگیرێت
         function doAction(index) {
             if (!globalCampaignsCache[index]) return;
             let item = globalCampaignsCache[index];
@@ -1514,7 +1508,6 @@
             let { item, index } = pendingActionItem;
             let currentDevId = getDeviceId();
             
-            // قوفڵکردنی تەواوی ئەم تاسکە تا چیتر پیشان نەدرێتەوە
             markDeviceCompleted(item.id);
             setDeviceCoins(getDeviceCoins() + item.reward);
             
