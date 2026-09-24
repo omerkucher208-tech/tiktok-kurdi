@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikFans & TeleFans</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #130720;
+            --card-bg: #210d36;
+            --text-main: #ffffff;
+            --text-sub: #d8b4e2;
+            --primary: #b5179e;
+            --primary-grad: linear-gradient(135deg, #7209b7 0%, #f72585 100%);
+            --accent: #f72585;
+            --border-color: #3d165f;
+            --badge-bg: #2c0b47;
+            --badge-border: #7209b7;
+            --badge-text: #ffb703;
+            --nav-bg: rgba(33, 13, 54, 0.98);
+            --nav-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --nav-active-glow: 0 4px 18px rgba(247, 37, 133, 0.6);
+        }
+
+        body.theme-black-gold {
+            --bg-body: #070707;
+            --card-bg: #141414;
+            --text-main: #f5d77f;
+            --text-sub: #a39882;
+            --primary: #d4af37;
+            --primary-grad: linear-gradient(135deg, #d4af37 0%, #996515 100%);
+            --accent: #ffd700;
+            --border-color: #2b2416;
+            --badge-bg: #1a1710;
+            --badge-border: #d4af37;
+            --badge-text: #ffd700;
+            --nav-bg: rgba(20, 20, 20, 0.98);
+            --nav-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            --nav-active-glow: 0 4px 18px rgba(212, 175, 55, 0.5);
+        }
+
+        body.theme-white-pink {
+            --bg-body: #fff5f8;
+            --card-bg: #ffffff;
+            --text-main: #2d3142;
+            --text-sub: #8d99ae;
+            --primary: #ff4d8d;
+            --primary-grad: linear-gradient(135deg, #ff758c 0%, #ff4d8d 100%);
+            --accent: #ff0055;
+            --border-color: #ffd6e0;
+            --badge-bg: #fff0f5;
+            --badge-border: #ffccd5;
+            --badge-text: #ff0055;
+            --nav-bg: rgba(255, 255, 255, 0.98);
+            --nav-shadow: 0 10px 30px rgba(255, 77, 141, 0.18);
+            --nav-active-glow: 0 4px 16px rgba(255, 77, 141, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            transition: 0.3s ease;
+        }
+
+        .t-coin {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 35% 35%, #fff176, #fbc02d 45%, #f57f17 90%);
+            color: #4e342e;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 11px;
+            border: 1px solid #fff9c4;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        #rulesScreen {
+            width: 100%;
+            max-width: 440px;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .rules-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 22px 18px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            text-align: right;
+        }
+
+        .rules-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--badge-text);
+            margin-bottom: 12px;
+        }
+
+        .rules-welcome {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .rules-warning-title {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .rules-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .rules-list li {
+            background: rgba(255, 255, 255, 0.04);
+            border-right: 3px solid var(--accent);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-sub);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-container input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-container span {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--badge-text);
+        }
+
+        .btn-continue {
+            width: 100%;
+            padding: 13px;
+            border-radius: 14px;
+            border: none;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: not-allowed;
+            background: #475569;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+
+        .btn-continue.active {
+            background: var(--primary-grad);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: var(--nav-active-glow);
+        }
+
+        #authScreen {
+            display: none;
+            width: 100%;
+            max-width: 440px;
+            padding: 30px 16px;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 2px solid var(--border-color);
+        }
+
+        .auth-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .auth-card input {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+            direction: ltr;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .btn-action-auth {
+            background: var(--primary-grad);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        #appScreen {
+            display: none;
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-title { font-weight: 900; font-size: 15px; }
+
+        .star-badge {
+            background: var(--badge-bg);
+            padding: 4px 10px;
+            border-radius: 18px;
+            color: var(--badge-text);
+            font-weight: 900;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--badge-border);
+        }
+
+        .tab-content { display: none; padding-bottom: 110px; flex: 1; }
+        .tab-content.active { display: block; }
+
+        .profile-banner {
+            background: var(--primary-grad);
+            padding: 22px 16px 18px;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid #fbc02d;
+            margin: 0 auto 8px;
+            object-fit: cover;
+            background: #e2e8f0;
+            display: block;
+        }
+
+        .display-username {
+            direction: ltr;
+            font-weight: 900;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .card-home {
+            background: var(--card-bg);
+            margin: 16px;
+            border-radius: 22px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .target-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 18px;
+            object-fit: cover;
+            margin: 8px auto 12px;
+            display: block;
+        }
+
+        .target-username {
+            direction: ltr;
+            font-size: 17px;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .action-btns { display: flex; gap: 10px; justify-content: center; width: 100%; }
+
+        .btn-skip {
+            flex: 1;
+            padding: 11px;
+            border-radius: 14px;
+            border: none;
+            background: #64748b;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-action {
+            flex: 1.5;
+            padding: 11px;
+            border-radius: 14px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .list-group { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+        .list-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .item-info-pack {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pack-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: rgba(104, 125, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .pack-title { font-size: 14px; font-weight: 800; }
+        .pack-desc { font-size: 11px; color: var(--text-sub); }
+
+        .btn-price {
+            background: var(--primary);
+            color: white;
+            padding: 7px 14px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            font-size: 12.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .direct-link-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            margin: 14px 14px 0;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .direct-link-card input {
+            background: var(--bg-body);
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 11px 12px;
+            width: 100%;
+            font-size: 13px;
+            color: var(--text-main);
+            outline: none;
+            direction: ltr;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .shop-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-buy-coin {
+            background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+            color: #451a03;
+            font-weight: 900;
+            font-size: 13.5px;
+            padding: 9px 16px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .theme-select-box { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .theme-card { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 14px; }
+        .theme-1-preview { background: #210d36; color: #fff; border: 1px solid #3d165f; }
+        .theme-2-preview { background: #141414; color: #ffd700; border: 1px solid #d4af37; }
+        .theme-3-preview { background: #fff5f8; color: #ff0055; border: 1px solid #ffd6e0; }
+
+        .custom-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .custom-popup-box {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 26px 20px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .popup-t-coin {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 35% 35%, #fff59d, #fbc02d 40%, #e65100 95%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: #3e2723;
+            margin: 0 auto 16px;
+            border: 3px solid #fffde7;
+            box-shadow: 0 8px 20px rgba(245, 127, 23, 0.4);
+        }
+
+        .popup-title { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+        .popup-message { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 18px; }
+
+        .popup-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .bottom-nav-wrapper {
+            position: fixed;
+            bottom: 8px;
+            left: 0; right: 0;
+            margin: auto;
+            max-width: 415px;
+            width: 96%;
+            z-index: 999;
+        }
+
+        .bottom-nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--nav-shadow);
+            border-radius: 22px;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 2px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 8.5px;
+            font-weight: 800;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            gap: 2px;
+            position: relative;
+            padding: 4px 0;
+            flex: 1;
+            border-radius: 12px;
+        }
+
+        .nav-item span.icon { 
+            font-size: 15px; 
+            line-height: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+        }
+        
+        .nav-item span.icon img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            width: 10px;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="theme-purple-red">
+
+    <!-- ١. شاشەیا یاسایان -->
+    <div id="rulesScreen">
+        <div class="rules-card">
+            <h2 class="rules-title">RULES</h2>
+            <p class="rules-welcome">ئــەڤ بــەرنــامــە هــاتــیە دروست کرن بۆ ئــەکــتیـڤ کرنا تــیک تــوک و تێلێگرامێ تە.</p>
+            <div class="rules-warning-title">⚠️ تـــێــبینی:</div>
+            <ul class="rules-list">
+                <li><b>1 -</b> تــو کەسەکێ فولو یان مێمبەر بکی پاشان T بوتە بهێن تو ئێک سەر لاببەی دێ هێە باند کرن.</li>
+                <li><b>2 -</b> تو کەسەکێ لایک بکەی T وەڕبگری پاشان لایکێ لا ببە دێ ئێک سەر هێە باند کرن.</li>
+            </ul>
+            <label class="checkbox-container">
+                <input type="checkbox" id="acceptRulesCheckbox" onchange="toggleContinueBtn()">
+                <span>رازیمە</span>
+            </label>
+            <button id="continueBtn" class="btn-continue" onclick="proceedToApp()" disabled>بــەڕدەوام</button>
+        </div>
+    </div>
+
+    <!-- ٢. پەڕەی لۆگین -->
+    <div id="authScreen">
+        <div class="logo">
+            <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok">
+            <img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram">
+        </div>
+        <h2 style="font-size: 20px; margin-bottom: 4px; color:#fff;">تۆمارکرن و چوونەژوورێ</h2>
+        <p style="color: var(--text-sub); font-size: 12.5px; margin-bottom: 18px;">ناڤێ تیکتۆکا خۆ بنڤێسە بێی پاسۆرد</p>
+        <div class="auth-card">
+            <input type="text" id="authUsername" placeholder="@username">
+            <button class="btn-action-auth" onclick="handleLogin()">دەستپێبکە</button>
+        </div>
+    </div>
+
+    <!-- ٣. ئەپڵیکەیشن -->
+    <div id="appScreen">
+        <div class="top-bar">
+            <div onclick="logout()" style="font-weight: 700; color: #fe2c55; cursor: pointer; font-size: 13.5px;">دەرکەفتن</div>
+            <div id="headerTitle" class="header-title">کۆمکرنا کوینێن T</div>
+            <div class="star-badge">
+                <span id="starCount">0</span>
+                <span class="t-coin">T</span>
+            </div>
+        </div>
+
+        <!-- بەشی Home -->
+        <div class="tab-content active" id="tabHome">
+            <div class="card-home" id="cardContainer"></div>
+        </div>
+
+        <!-- بەشی فۆڵۆوەر -->
+        <div class="tab-content" id="tabFollowers">
+            <div class="profile-banner">
+                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 45px; height: 45px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <img id="userAvatar" src="" class="avatar" alt="Avatar">
+                <div id="showUsername" class="display-username">@username</div>
+                <p style="font-size: 12.5px; opacity: 0.9;">فۆڵۆوەری ڕاستەقینە بۆ هەژمارا خۆ زێدە بکە</p>
+            </div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+5 فۆڵۆوەر</div>
+                            <div class="pack-desc">٥ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 5, 50, 'تیکتۆک فۆڵۆوەر')">50 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+10 فۆڵۆوەر</div>
+                            <div class="pack-desc">١٠ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 10, 100, 'تیکتۆک فۆڵۆوەر')">100 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+15 فۆڵۆوەر</div>
+                            <div class="pack-desc">١٥ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 15, 150, 'تیکتۆک فۆڵۆوەر')">150 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+20 فۆڵۆوەر</div>
+                            <div class="pack-desc">٢٠ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 20, 200, 'تیکتۆک فۆڵۆوەر')">200 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+100 فۆڵۆوەر</div>
+                            <div class="pack-desc">١٠٠ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 100, 1000, 'تیکتۆک فۆڵۆوەر')">1000 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon">👤</div>
+                        <div>
+                            <div class="pack-title">+1000 فۆڵۆوەر</div>
+                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ فۆڵۆو کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" onclick="freeOrder('follower', 1000, 10000, 'تیکتۆک فۆڵۆوەر')">10000 <span class="t-coin">T</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بەشی لایکەکان -->
+        <div class="tab-content" id="tabLikes">
+            <div class="profile-banner" style="background: linear-gradient(135deg, #fe2c55 0%, #d62047 100%); display: flex; flex-direction: column; align-items: center;">
+                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <h3 style="margin-bottom: 4px;">زێدەکرنا لایکان ❤️</h3>
+                <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
+            </div>
+            <div class="direct-link-card">
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی پۆست یان ڤیدیۆیا تیکتۆکێ:</label>
+                <input type="text" id="directVideoLinkInput" placeholder="https://www.tiktok.com/@user/video/...">
+            </div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+5 لایک</div>
+                            <div class="pack-desc">٥ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(5, 50)">50 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+10 لایک</div>
+                            <div class="pack-desc">١٠ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(10, 100)">100 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+15 لایک</div>
+                            <div class="pack-desc">١٥ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(15, 150)">150 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+20 لایک</div>
+                            <div class="pack-desc">٢٠ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(20, 200)">200 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+100 لایک</div>
+                            <div class="pack-desc">١٠٠ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(100, 1000)">1000 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
+                        <div>
+                            <div class="pack-title">+1000 لایک</div>
+                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ لایک کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(1000, 10000)">10000 <span class="t-coin">T</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 💬 بەشی کۆمێنتەکان -->
+        <div class="tab-content" id="tabComments">
+            <div class="profile-banner" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); display: flex; flex-direction: column; align-items: center;">
+                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <h3 style="margin-bottom: 4px;">زێدەکرنا کۆمێنتان 💬</h3>
+                <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
+            </div>
+            <div class="direct-link-card">
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی پۆست یان ڤیدیۆیا تیکتۆکێ:</label>
+                <input type="text" id="directCommentLinkInput" placeholder="https://www.tiktok.com/@user/video/...">
+            </div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+5 کۆمێنت</div>
+                            <div class="pack-desc">٥ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(5, 50)">50 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+10 کۆمێنت</div>
+                            <div class="pack-desc">١٠ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(10, 100)">100 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+15 کۆمێنت</div>
+                            <div class="pack-desc">١٥ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(15, 150)">150 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+20 کۆمێنت</div>
+                            <div class="pack-desc">٢٠ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(20, 200)">200 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+100 کۆمێنت</div>
+                            <div class="pack-desc">١٠٠ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(100, 1000)">1000 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
+                        <div>
+                            <div class="pack-title">+1000 کۆمێنت</div>
+                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ کۆمێنت کەن</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(1000, 10000)">10000 <span class="t-coin">T</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📱 بەشی تێلێگرام (مێمبەر / ئەندام) -->
+        <div class="tab-content" id="tabTelegram">
+            <div class="profile-banner" style="background: linear-gradient(135deg, #0088cc 0%, #006699 100%); display: flex; flex-direction: column; align-items: center;">
+                <img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <h3 style="margin-bottom: 4px;">مێمبەرێن تێلێگرامێ 📱</h3>
+                <p style="font-size: 12.5px; opacity: 0.95;">لینکی کەناڵ یان گرووپی خۆ دابنێ و مێمبەران زێدە بکە</p>
+            </div>
+            <div class="direct-link-card">
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی کەناڵ یان گرووپی تێلێگرام:</label>
+                <input type="text" id="directTelegramLinkInput" placeholder="https://t.me/... یا @channel">
+            </div>
+            <div class="list-group">
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+5 مێمبەر</div>
+                            <div class="pack-desc">٥ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(5, 50)">50 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+10 مێمبەر</div>
+                            <div class="pack-desc">١٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(10, 100)">100 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+15 مێمبەر</div>
+                            <div class="pack-desc">١٥ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(15, 150)">150 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+20 مێمبەر</div>
+                            <div class="pack-desc">٢٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(20, 200)">200 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+100 مێمبەر</div>
+                            <div class="pack-desc">١٠٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(100, 1000)">1000 <span class="t-coin">T</span></button>
+                </div>
+                <div class="list-item">
+                    <div class="item-info-pack">
+                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
+                        <div>
+                            <div class="pack-title">+1000 مێمبەر</div>
+                            <div class="pack-desc">١٠٠٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(1000, 10000)">10000 <span class="t-coin">T</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بەشی کڕینی کوین -->
+        <div class="tab-content" id="tabShop">
+            <div class="profile-banner" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                <h3 style="margin-bottom: 4px;">کڕینا کوینێن T 💳</h3>
+                <p style="font-size: 12.5px; opacity: 0.95;">کۆینێن خۆ زێدە بکە ب بلەزترین شێوە</p>
+            </div>
+            <div class="list-group">
+                <div class="shop-card">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span class="t-coin" style="width:30px; height:30px; font-size:16px;">T</span>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 900;">250 T Coin</div>
+                            <div style="font-size: 11.5px; color: var(--text-sub);">گەهاندنا دەستبەجێ</div>
+                        </div>
+                    </div>
+                    <button class="btn-buy-coin" onclick="buyCoinsTelegram()">3,000 دینار</button>
+                </div>
+                <div class="shop-card">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span class="t-coin" style="width:30px; height:30px; font-size:16px;">T</span>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 900;">750 T Coin</div>
+                            <div style="font-size: 11.5px; color: var(--text-sub);">باشترین ئۆفەر ⭐</div>
+                        </div>
+                    </div>
+                    <button class="btn-buy-coin" onclick="buyCoinsTelegram()">7,000 دینار</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بەشی ڕێکخستن -->
+        <div class="tab-content" id="tabSettings">
+            <div class="profile-banner">
+                <h3 style="margin-bottom: 4px;">ڕێکخستنێن ئەپێ ⚙️</h3>
+                <p style="font-size: 12.5px; opacity: 0.9;">کۆدی دیاری و دیاریکردنی ڕەنگ (Theme)</p>
+            </div>
+            <div class="direct-link-card" style="margin-top: 14px;">
+                <label style="font-size: 12.5px; font-weight: 800; color: var(--text-main);">🎁 کۆدی دیاری (Redeem Code):</label>
+                <div style="display: flex; gap: 8px; margin-top: 6px;">
+                    <input type="text" id="redeemCodeInput" placeholder="کۆدێ خۆ لێرە بنڤێسە" style="margin: 0; text-transform: uppercase;">
+                    <button class="btn-price" onclick="redeemCode()" style="padding: 10px 16px; border-radius: 10px;">وەرگرتن</button>
+                </div>
+            </div>
+            <div class="list-group">
+                <h4 style="font-size: 14px; margin-top: 4px;">ڕەنگێ ئەپێ هەڵبژێرە:</h4>
+                <div class="theme-select-box">
+                    <div class="theme-card theme-1-preview" onclick="changeTheme('theme-purple-red')">
+                        <span>🟣 Purple and Red</span>
+                        <span id="check-purple-red">✔</span>
+                    </div>
+                    <div class="theme-card theme-2-preview" onclick="changeTheme('theme-black-gold')">
+                        <span>🟡 Black and Gold</span>
+                        <span id="check-black-gold"></span>
+                    </div>
+                    <div class="theme-card theme-3-preview" onclick="changeTheme('theme-white-pink')">
+                        <span>🌸 White and Some Pink</span>
+                        <span id="check-white-pink"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- شریتی خوارەوە (Bottom Nav) -->
+        <div class="bottom-nav-wrapper">
+            <div class="bottom-nav">
+                <button class="nav-item active" id="btnNavHome" onclick="switchTab('tabHome', 'کۆمکرنا کوینێن T', this)">
+                    <span class="icon"><span class="t-coin" style="width:15px; height:15px; font-size:8px;">T</span></span>
+                    <span>کۆمکرن</span>
+                </button>
+                <button class="nav-item" id="btnNavFollow" onclick="switchTab('tabFollowers', 'فۆلۆوەرێن تیکتۆکێ', this)">
+                    <span class="icon">👥</span>
+                    <span>فۆلۆوەر</span>
+                </button>
+                <button class="nav-item" id="btnNavLike" onclick="switchTab('tabLikes', 'زێدەکرنا لایکان', this)">
+                    <span class="icon">❤️</span>
+                    <span>لایک</span>
+                </button>
+                <button class="nav-item" id="btnNavComment" onclick="switchTab('tabComments', 'زێدەکرنا کۆمێنتان', this)">
+                    <span class="icon">💬</span>
+                    <span>کۆمێنت</span>
+                </button>
+                <button class="nav-item" id="btnNavTelegram" onclick="switchTab('tabTelegram', 'مێمبەرێن تێلێگرامێ', this)">
+                    <span class="icon"><img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram"></span>
+                    <span>تێلێگرام</span>
+                </button>
+                <button class="nav-item" id="btnNavShop" onclick="switchTab('tabShop', 'کڕینا کوینان', this)">
+                    <span class="icon">💳</span>
+                    <span>کڕین</span>
+                </button>
+                <button class="nav-item" id="btnNavSetting" onclick="switchTab('tabSettings', 'ڕێکخستن', this)">
+                    <span class="icon">⚙️</span>
+                    <span>ڕێکخستن</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- پۆپ-ئەپی 3D -->
+    <div class="custom-popup-overlay" id="successPopup">
+        <div class="custom-popup-box">
+            <div class="popup-t-coin">T</div>
+            <h3 class="popup-title" id="popupTitleText">داخوازی هاتە تۆمارکرن!</h3>
+            <p class="popup-message" id="popupMessageText"></p>
+            <button class="popup-btn" onclick="closeSuccessPopup()">باشە</button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let isSuccessState = true;
+        let pendingActionItem = null;
+        let actionStartTime = 0;
+        let globalCampaignsCache = [];
+
+        const TELEGRAM_BOT_TOKEN = "8894605960:AAFHAgowyStNqDH-JQd_j34ZdeGCQjCN-wk";
+        const TELEGRAM_CHAT_ID = "8832347891";
+
+        const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
+        const JSONBIN_API_KEY = "$2a$10$6pWydey7GNDjYR6gdzdEweU8FJivvTpPE/FfNYtLWNnvDpQC/06zi";
+
+        async function fetchGlobalCampaigns() {
+            try {
+                let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                    headers: {
+                        "X-Master-Key": JSONBIN_API_KEY
+                    }
+                });
+                let data = await res.json();
+                if (data && data.record) {
+                    globalCampaignsCache = Array.isArray(data.record) ? data.record : [];
+                    loadCurrentItem();
+                }
+            } catch(e) {}
+        }
+
+        async function saveGlobalCampaigns(campaigns) {
+            globalCampaignsCache = campaigns;
+            try {
+                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify(campaigns)
+                });
+            } catch(e) {}
+            loadCurrentItem();
+        }
+
+        setInterval(() => {
+            fetchGlobalCampaigns();
+        }, 1000);
+
+        const REDEEM_CODES_DATABASE = {
+            "T0RSE07501": 99999999,
+            "TURSE89341": 250, "TURSE17420": 250, "TURSE55291": 250, "TURSE38104": 250, "TURSE62947": 250,
+            "TURSE90412": 250, "TURSE44183": 250, "TURSE73019": 250, "TURSE26548": 250, "TURSE81930": 250,
+            "TURSE35721": 250, "TURSE49018": 250, "TURSE68234": 250, "TURSE12984": 250, "TURSE77410": 250,
+            "TURSE93052": 250, "TURSE20194": 250, "TURSE54820": 250, "TURSE31097": 250, "TURSE86431": 250,
+            "TURSE42109": 250, "TURSE60935": 250, "TURSE75812": 250, "TURSE19430": 250, "TURSE98204": 250,
+            "TURSE70184": 750, "TURSE33829": 750, "TURSE91450": 750, "TURSE24910": 750, "TURSE88192": 750,
+            "TURSE46039": 750, "TURSE62718": 750, "TURSE15940": 750, "TURSE79024": 750, "TURSE38401": 750,
+            "TURSE51982": 750, "TURSE94210": 750, "TURSE27384": 750, "TURSE80519": 750, "TURSE66140": 750,
+            "TURSE43928": 750, "TURSE18274": 750, "TURSE59013": 750, "TURSE72491": 750, "TURSE36108": 750,
+            "TURSE90582": 750, "TURSE21840": 750, "TURSE84920": 750, "TURSE47193": 750, "TURSE63018": 750
+        };
+
+        function toggleContinueBtn() {
+            let cb = document.getElementById('acceptRulesCheckbox');
+            let btn = document.getElementById('continueBtn');
+            if (cb.checked) {
+                btn.disabled = false;
+                btn.classList.add('active');
+            } else {
+                btn.disabled = true;
+                btn.classList.remove('active');
+            }
+        }
+
+        function proceedToApp() {
+            localStorage.setItem('tikfans_rules_accepted', 'true');
+            document.getElementById('rulesScreen').style.display = 'none';
+            let savedUser = localStorage.getItem('tikfans_logged_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                launchApp();
+            } else {
+                document.getElementById('authScreen').style.display = 'flex';
+            }
+        }
+
+        function getDeviceCoins() {
+            let savedCoins = localStorage.getItem('tikfans_device_coins');
+            if (savedCoins === null) {
+                localStorage.setItem('tikfans_device_coins', '150');
+                return 150;
+            }
+            return parseInt(savedCoins, 10);
+        }
+
+        function setDeviceCoins(amount) {
+            localStorage.setItem('tikfans_device_coins', amount.toString());
+            let sc = document.getElementById('starCount');
+            if (sc) sc.innerText = amount;
+        }
+
+        function buyCoinsTelegram() {
+            let textMsg = encodeURIComponent("سلاف من دڤێت کوین بکڕم");
+            window.open(`https://t.me/T_U_R_S_E?text=${textMsg}`, '_blank');
+        }
+
+        function sendTelegramAlert(username, orderType, count, targetLink) {
+            const timeNow = new Date().toLocaleTimeString();
+            const message = `🚨 ئاگاداریا نوی ژ TikFans!%0A%0A👤 بەکارهێنەر: ${username}%0A📦 داخوازی: ${orderType}%0A🔢 ژمارە: ${count}%0A🔗 لینک: ${targetLink}%0A⏰ کات: ${timeNow}`;
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}`).catch(e=>{});
+        }
+
+        function showSuccessPopup(title, text, isSuccess = true) {
+            isSuccessState = isSuccess;
+            document.getElementById('popupTitleText').innerText = title;
+            document.getElementById('popupMessageText').innerText = text;
+            document.getElementById('successPopup').style.display = 'flex';
+        }
+
+        function closeSuccessPopup() {
+            document.getElementById('successPopup').style.display = 'none';
+            if (isSuccessState) {
+                switchTab('tabHome', 'کۆمکرنا کوینێن T', document.getElementById('btnNavHome'));
+            }
+        }
+
+        function changeTheme(themeName) {
+            document.body.className = themeName;
+            localStorage.setItem('tikfans_app_theme', themeName);
+            document.getElementById('check-purple-red').innerText = (themeName === 'theme-purple-red') ? '✔' : '';
+            document.getElementById('check-black-gold').innerText = (themeName === 'theme-black-gold') ? '✔' : '';
+            document.getElementById('check-white-pink').innerText = (themeName === 'theme-white-pink') ? '✔' : '';
+        }
+
+        function redeemCode() {
+            let input = document.getElementById('redeemCodeInput');
+            let code = input.value.trim().toUpperCase();
+            if (!code) {
+                showSuccessPopup("ئاگاداری!", "تکایە کۆدی دیاری بنووسە!", false);
+                return;
+            }
+            let usedCodes = JSON.parse(localStorage.getItem('tikfans_used_redeem_codes') || '[]');
+            if (usedCodes.includes(code)) {
+                showSuccessPopup("ئاگاداری!", "تۆ پێشتر ئەم کۆدە بەکارهێناوە!", false);
+                return;
+            }
+            if (REDEEM_CODES_DATABASE[code]) {
+                let rewardCoins = REDEEM_CODES_DATABASE[code];
+                setDeviceCoins(getDeviceCoins() + rewardCoins);
+                usedCodes.push(code);
+                localStorage.setItem('tikfans_used_redeem_codes', JSON.stringify(usedCodes));
+                input.value = "";
+                showSuccessPopup("پیرۆزە!", `بەسەرکەوتوویی ${rewardCoins} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
+            } else {
+                showSuccessPopup("هەڵە!", "ئەم کۆدە هەڵەیە یان بەسەرچووە!", false);
+            }
+        }
+
+        function handleLogin() {
+            let userField = document.getElementById('authUsername').value.trim();
+            if (!userField) {
+                showSuccessPopup("ئاگاداری!", "تکایە ناڤێ تیکتۆکا خۆ بنڤێسە!", false);
+                return;
+            }
+            let pureUser = userField.replace('@', '').toLowerCase();
+            currentUser = {
+                username: "@" + pureUser,
+                avatar: "https://unavatar.io/tiktok/" + pureUser
+            };
+            localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
+            launchApp();
+        }
+
+        function launchApp() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appScreen').style.display = 'flex';
+            document.getElementById('showUsername').innerText = currentUser.username;
+            document.getElementById('userAvatar').src = currentUser.avatar;
+            document.getElementById('starCount').innerText = getDeviceCoins();
+            fetchGlobalCampaigns();
+        }
+
+        function logout() {
+            localStorage.removeItem('tikfans_logged_user');
+            currentUser = null;
+            document.getElementById('appScreen').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'flex';
+        }
+
+        function freeOrder(type, quantity, cost, labelTitle) {
+            let currentCoins = getDeviceCoins();
+            if (currentCoins < cost) {
+                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن! پێتڤیە ل دەستپێکێ ${cost} کوینێن T کۆم بکەی.`, false);
+                return;
+            }
+            let targetLink = "https://www.tiktok.com/" + currentUser.username;
+            setDeviceCoins(currentCoins - cost);
+            let campaigns = [...globalCampaignsCache];
+            campaigns.unshift({
+                id: Date.now(),
+                username: currentUser.username,
+                type: type,
+                link: targetLink,
+                img: currentUser.avatar,
+                reward: 5,
+                remaining: quantity,
+                completedBy: []
+            });
+            saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, labelTitle, quantity, targetLink);
+            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `داخوازیا تە سەرکەوتوو بوو و ل دەف هەمی جیهانێ دیار بوو!`, true);
+        }
+
+        async function submitDirectLike(quantity, cost) {
+            let input = document.getElementById('directVideoLinkInput');
+            let link = input.value.trim();
+            if (!link) {
+                showSuccessPopup("ئاگاداری!", "تکایە لینکی ڤیدیۆیا تیکتۆکێ بنووسە!", false);
+                return;
+            }
+            let currentCoins = getDeviceCoins();
+            if (currentCoins < cost) {
+                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
+                return;
+            }
+            setDeviceCoins(currentCoins - cost);
+            let coverImg = currentUser.avatar;
+            try {
+                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
+                let data = await res.json();
+                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
+            } catch(e) {}
+            let campaigns = [...globalCampaignsCache];
+            campaigns.unshift({
+                id: Date.now(),
+                username: currentUser.username,
+                type: "like",
+                link: link,
+                img: coverImg,
+                reward: 5,
+                remaining: quantity,
+                completedBy: []
+            });
+            saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, 'تیکتۆک لایک', quantity, link);
+            input.value = "";
+            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
+        }
+
+        async function submitDirectComment(quantity, cost) {
+            let input = document.getElementById('directCommentLinkInput');
+            let link = input.value.trim();
+            if (!link) {
+                showSuccessPopup("ئاگاداری!", "تکایە لینکی ڤیدیۆیا تیکتۆکێ بنووسە!", false);
+                return;
+            }
+            let currentCoins = getDeviceCoins();
+            if (currentCoins < cost) {
+                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
+                return;
+            }
+            setDeviceCoins(currentCoins - cost);
+            let coverImg = currentUser.avatar;
+            try {
+                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
+                let data = await res.json();
+                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
+            } catch(e) {}
+            let campaigns = [...globalCampaignsCache];
+            campaigns.unshift({
+                id: Date.now(),
+                username: currentUser.username,
+                type: "comment",
+                link: link,
+                img: coverImg,
+                reward: 5,
+                remaining: quantity,
+                completedBy: []
+            });
+            saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, 'تیکتۆک کۆمێنت', quantity, link);
+            input.value = "";
+            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
+        }
+
+        function submitTelegramMember(quantity, cost) {
+            let input = document.getElementById('directTelegramLinkInput');
+            let link = input.value.trim();
+            if (!link) {
+                showSuccessPopup("ئاگاداری!", "تکایە لینکی تێلێگرام بنووسە!", false);
+                return;
+            }
+            let currentCoins = getDeviceCoins();
+            if (currentCoins < cost) {
+                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
+                return;
+            }
+            setDeviceCoins(currentCoins - cost);
+            sendTelegramAlert(currentUser.username, 'تێلێگرام مێمبەر', quantity, link);
+            input.value = "";
+            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
+        }
+
+        function loadCurrentItem() {
+            let container = document.getElementById('cardContainer');
+            if (!globalCampaignsCache || globalCampaignsCache.length === 0) {
+                container.innerHTML = `
+                    <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
+                    <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاری نەماینە!</h3>
+                    <p style="font-size: 12px; color: var(--text-sub);">داخوازیا فۆڵۆوەر یان لایک بکە.</p>
+                `;
+                return;
+            }
+            let item = globalCampaignsCache[0];
+            let actionText = "ئەنجامبدە";
+            if (item.type === 'follower') actionText = "فۆڵۆو بکە";
+            else if (item.type === 'like') actionText = "لایک بکە";
+            else if (item.type === 'comment') actionText = "کۆمێنت بنڤێسە";
+
+            container.innerHTML = `
+                <img src="${item.img}" class="target-img" alt="Target">
+                <div class="target-username">${item.username}</div>
+                <div class="action-btns">
+                    <button class="btn-skip" onclick="skipItem()">تێپەڕین</button>
+                    <button class="btn-action" id="actionBtn" onclick="doAction(0)">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
+                </div>
+            `;
+        }
+
+        function doAction(index) {
+            if (!globalCampaignsCache[index]) return;
+            let item = globalCampaignsCache[index];
+            let btn = document.getElementById('actionBtn');
+            btn.innerHTML = `چاوەڕوانبە...`;
+            btn.disabled = true;
+            pendingActionItem = { item, index };
+            actionStartTime = Date.now();
+            window.open(item.link, '_blank');
+            setTimeout(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `پشکنین و وەرگرتن ✔`;
+                    btn.onclick = verifyActionCompletion;
+                }
+            }, 1000);
+        }
+
+        function verifyActionCompletion() {
+            if (!pendingActionItem) return;
+            let timeSpent = (Date.now() - actionStartTime) / 1000;
+            if (timeSpent < 4) {
+                showSuccessPopup("ئاگاداری!", "تکایە سەرەتا کردارەکە لە تیکتۆک ئەنجام بدە پاشان بگەڕێوە!", false);
+                return;
+            }
+            let campaigns = [...globalCampaignsCache];
+            let { item, index } = pendingActionItem;
+            setDeviceCoins(getDeviceCoins() + item.reward);
+            if (!item.completedBy) item.completedBy = [];
+            item.completedBy.push(currentUser.username.toLowerCase());
+            item.remaining--;
+            if (item.remaining <= 0) {
+                campaigns.splice(index, 1);
+            } else {
+                campaigns[index] = item;
+            }
+            saveGlobalCampaigns(campaigns);
+            pendingActionItem = null;
+            showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
+        }
+
+        function skipItem() {
+            let campaigns = [...globalCampaignsCache];
+            if (campaigns.length <= 1) return;
+            let skipped = campaigns.shift();
+            campaigns.push(skipped);
+            saveGlobalCampaigns(campaigns);
+        }
+
+        function switchTab(tabId, title, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+            document.getElementById('headerTitle').innerText = title;
+        }
+
+        window.onload = function() {
+            let savedTheme = localStorage.getItem('tikfans_app_theme') || 'theme-purple-red';
+            changeTheme(savedTheme);
+            let rulesAccepted = localStorage.getItem('tikfans_rules_accepted');
+            if (!rulesAccepted) {
+                document.getElementById('rulesScreen').style.display = 'flex';
+            } else {
+                document.getElementById('rulesScreen').style.display = 'none';
+                let savedUser = localStorage.getItem('tikfans_logged_user');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    launchApp();
+                } else {
+                    document.getElementById('authScreen').style.display = 'flex';
+                }
+            }
+        };
+    </script>
+</body>
+</html>
