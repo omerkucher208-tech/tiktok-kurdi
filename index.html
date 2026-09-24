@@ -507,6 +507,21 @@
         .theme-2-preview { background: #141414; color: #ffd700; border: 1px solid #d4af37; }
         .theme-3-preview { background: #fff5f8; color: #ff0055; border: 1px solid #ffd6e0; }
 
+        .btn-danger-reset {
+            width: 100%;
+            background: #ef4444;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 13px;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+            transition: 0.2s;
+        }
+        .btn-danger-reset:active { transform: scale(0.97); }
+
         .custom-popup-overlay {
             display: none;
             position: fixed;
@@ -929,7 +944,7 @@
         <div class="tab-content" id="tabSettings">
             <div class="profile-banner">
                 <h3 style="margin-bottom: 4px;">ڕێکخستنێن ئەپێ ⚙️</h3>
-                <p style="font-size: 12.5px; opacity: 0.9;">کۆدی دیاری و دیاریکردنی ڕەنگ (Theme)</p>
+                <p style="font-size: 12.5px; opacity: 0.9;">کۆدی دیاری، ڕەنگ، و پاککردنەوە</p>
             </div>
             <div class="direct-link-card" style="margin-top: 14px;">
                 <label style="font-size: 12.5px; font-weight: 800; color: var(--text-main);">🎁 کۆدی دیاری (Redeem Code):</label>
@@ -954,6 +969,9 @@
                         <span id="check-white-pink"></span>
                     </div>
                 </div>
+
+                <h4 style="font-size: 14px; margin-top: 12px; color: #ef4444;">سڕینەوە و خاوێنکردنەوە:</h4>
+                <button class="btn-danger-reset" onclick="resetEverythingMaster()">🗑️ سفرکردنی بەشی کۆمکردن و کۆین</button>
             </div>
         </div>
 
@@ -1011,6 +1029,27 @@
         const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
         const JSONBIN_API_KEY = "$2a$10$6pWYdey7GNDjYR6gdzdEweU8FjivvTpPE/FfNYTlWNnvDpQC/O6zi";
 
+        function getDeviceId() {
+            let devId = localStorage.getItem('tikfans_device_id');
+            if (!devId) {
+                devId = 'dev_' + Math.random().toString(36).substring(2, 10) + Date.now();
+                localStorage.setItem('tikfans_device_id', devId);
+            }
+            return devId;
+        }
+
+        function getDeviceCompletedList() {
+            return JSON.parse(localStorage.getItem('tikfans_device_completed_campaigns') || '[]');
+        }
+
+        function markDeviceCompleted(campaignId) {
+            let list = getDeviceCompletedList();
+            if (!list.includes(campaignId)) {
+                list.push(campaignId);
+                localStorage.setItem('tikfans_device_completed_campaigns', JSON.stringify(list));
+            }
+        }
+
         async function fetchGlobalCampaigns() {
             try {
                 let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
@@ -1039,6 +1078,31 @@
                 });
             } catch(e) {}
             loadCurrentItem();
+        }
+
+        // فەنکشنی ماستەر بۆ سفرکردنەوەی هەموو شتێک بە یەک کلیک
+        async function resetEverythingMaster() {
+            let confirmAction = confirm("ئەرێ دڵنیایت دەتەوێت هەموو بەشی کۆمکردن، پۆستەکان و کۆینەکان سفر بکەیتەوە؟");
+            if (!confirmAction) return;
+
+            try {
+                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify([])
+                });
+            } catch(e) {}
+
+            localStorage.removeItem('tikfans_device_coins');
+            localStorage.removeItem('tikfans_device_completed_campaigns');
+            localStorage.removeItem('tikfans_used_redeem_codes');
+            setDeviceCoins(0);
+            globalCampaignsCache = [];
+            loadCurrentItem();
+            showSuccessPopup("سفرکرایەوە!", "هەموو بەشی کۆمکردن و کۆینەکان بەسەرکەوتوویی پاککرانەوە!", true);
         }
 
         const REDEEM_CODES_DATABASE = {
@@ -1198,6 +1262,7 @@
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
+                creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
                 type: type,
                 link: targetLink,
@@ -1205,7 +1270,8 @@
                 reward: 5,
                 initialCount: quantity,
                 remaining: quantity,
-                completedBy: []
+                completedBy: [],
+                completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
             sendTelegramAlert(currentUser.username, labelTitle, quantity, targetLink);
@@ -1228,6 +1294,7 @@
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
+                creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
                 type: "like",
                 link: link,
@@ -1235,7 +1302,8 @@
                 reward: 5,
                 initialCount: quantity,
                 remaining: quantity,
-                completedBy: []
+                completedBy: [],
+                completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
             sendTelegramAlert(currentUser.username, 'تیکتۆک لایک', quantity, link);
@@ -1259,6 +1327,7 @@
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
+                creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
                 type: "comment",
                 link: link,
@@ -1266,7 +1335,8 @@
                 reward: 5,
                 initialCount: quantity,
                 remaining: quantity,
-                completedBy: []
+                completedBy: [],
+                completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
             sendTelegramAlert(currentUser.username, 'تیکتۆک کۆمێنت', quantity, link);
@@ -1287,25 +1357,26 @@
 
             let validItemIndex = -1;
             let myNameLower = currentUser ? currentUser.username.toLowerCase() : "";
+            let currentDevId = getDeviceId();
+            let deviceDoneList = getDeviceCompletedList();
 
             for (let i = 0; i < globalCampaignsCache.length; i++) {
                 let camp = globalCampaignsCache[i];
                 let completedList = camp.completedBy || [];
-                if (camp.username.toLowerCase() !== myNameLower && !completedList.includes(myNameLower)) {
+                let devDone = (camp.completedDevices || []).includes(currentDevId) || deviceDoneList.includes(camp.id);
+                let isMyDeviceCampaign = (camp.creatorDeviceId && camp.creatorDeviceId === currentDevId);
+
+                if (camp.username.toLowerCase() !== myNameLower && !completedList.includes(myNameLower) && !devDone && !isMyDeviceCampaign) {
                     validItemIndex = i;
                     break;
                 }
-            }
-
-            if (validItemIndex === -1 && globalCampaignsCache.length > 0) {
-                validItemIndex = 0;
             }
 
             if (validItemIndex === -1) {
                 container.innerHTML = `
                     <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
                     <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاریێن نوو نینن!</h3>
-                    <p style="font-size: 12px; color: var(--text-sub);">تە هەمی داواکاری تەواو کرن.</p>
+                    <p style="font-size: 12px; color: var(--text-sub);">تە ب ڤێ تەلەفۆنێ هەمی داواکاری تەواو کرن.</p>
                 `;
                 return;
             }
@@ -1331,7 +1402,6 @@
             `;
         }
 
-        // کلیکا ئێکێ دەچیتە سەر تیکتۆک، کلیکا دووێ دەستبەجێ کۆینان ل سەر زێدە دکەت بێی گۆڕینا نڤێسینێ
         function doAction(index) {
             if (!globalCampaignsCache[index]) return;
             let item = globalCampaignsCache[index];
@@ -1357,11 +1427,16 @@
 
             let campaigns = [...globalCampaignsCache];
             let { item, index } = pendingActionItem;
+            let currentDevId = getDeviceId();
             
+            markDeviceCompleted(item.id);
             setDeviceCoins(getDeviceCoins() + item.reward);
             
             if (!item.completedBy) item.completedBy = [];
             item.completedBy.push(currentUser.username.toLowerCase());
+
+            if (!item.completedDevices) item.completedDevices = [];
+            item.completedDevices.push(currentDevId);
             
             item.remaining--;
             if (item.remaining <= 0) {
@@ -1395,6 +1470,7 @@
         }
 
         window.onload = function() {
+            getDeviceId();
             let savedTheme = localStorage.getItem('tikfans_app_theme') || 'theme-purple-red';
             changeTheme(savedTheme);
             let rulesAccepted = localStorage.getItem('tikfans_rules_accepted');
