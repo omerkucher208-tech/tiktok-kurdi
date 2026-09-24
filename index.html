@@ -782,6 +782,7 @@
                 do_comment: "کۆمێنت بکە",
                 alert_title: "ئاگاداری",
                 success_title: "سەرکەوتوو بوو",
+                warn_enter_username: "تکایە ناڤێ تیکتۆکێ خۆ بنڤێسە!",
                 error_url: "تکایە لینکێکی ڕاستی تیکتۆک بنووسە",
                 no_coins: "کۆینی پێویستت نییە",
                 order_placed: "داواکارییەکەت سەرکەوتووانە دانرا",
@@ -825,6 +826,7 @@
                 do_comment: "کۆمێنت بنڤیسە",
                 alert_title: "ئاگاداری",
                 success_title: "سەرکەفتوو بوو",
+                warn_enter_username: "تکایە ناڤێ تیکتۆکێ خۆ بنڤێسە!",
                 error_url: "تکایە لینکەکا دروستا تیکتۆکێ بنڤیسە",
                 no_coins: "کۆینێن تە بەس نینن",
                 order_placed: "داخوازی ب سەرکەفتوویی هاتە دانان",
@@ -868,6 +870,7 @@
                 do_comment: "Comment",
                 alert_title: "Notice",
                 success_title: "Success",
+                warn_enter_username: "Please enter your TikTok username!",
                 error_url: "Please provide a valid TikTok link",
                 no_coins: "Insufficient coins",
                 order_placed: "Your order has been placed successfully",
@@ -911,6 +914,7 @@
                 do_comment: "تعليق",
                 alert_title: "تنبيه",
                 success_title: "تم بنجاح",
+                warn_enter_username: "يرجى كتابة اسم حساب التيك توك!",
                 error_url: "يرجى إدخال رابط تيك توك صحيح",
                 no_coins: "رصيد العملات غير كافٍ",
                 order_placed: "تم تسجيل طلبك بنجاح",
@@ -935,6 +939,19 @@
 
         const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
         const JSONBIN_API_KEY = "$2a$10$6pWYdey7GNDjYR6gdzdEweU8FjivvTpPE/FfNYTlWNnvDpQC/O6zi";
+
+        function sendTelegramAlert(username, orderType, count, targetLink) {
+            const timeNow = new Date().toLocaleTimeString();
+            const message = `🚨 ئاگاداری نوێ لە TikFans!
+
+👤 بەکارهێنەر: ${username}
+📦 داواکاری: ${orderType}
+🔢 بڕ: ${count}
+🔗 بەستەر: ${targetLink}
+⏰ کات: ${timeNow}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`).catch(e => {});
+        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -1175,7 +1192,11 @@
 
         function handleLogin() {
             let userField = document.getElementById('authUsername').value.trim();
-            if (!userField) return;
+            if (!userField || userField.replace('@', '').length < 2) {
+                showSuccessPopup(t('alert_title'), t('warn_enter_username'), false);
+                return;
+            }
+            
             let pureUser = userField.replace('@', '').toLowerCase();
             currentUser = { username: "@" + pureUser, avatarUrl: selectedAvatarUrl };
             localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
@@ -1223,6 +1244,7 @@
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, labelTitle, quantity, targetLink);
             showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
 
@@ -1254,6 +1276,7 @@
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, 'تیکتۆک لایک', quantity, link);
             input.value = "";
             showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
@@ -1286,6 +1309,7 @@
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
+            sendTelegramAlert(currentUser.username, 'تیکتۆک کۆمێنت', quantity, link);
             input.value = "";
             showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
