@@ -3,58 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikFans</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <title>TikFans Ultra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-body: #130720;
-            --card-bg: #210d36;
+            --bg-base: #08030f;
+            --primary: #fe2c55;
+            --primary-glow: rgba(254, 44, 85, 0.4);
+            --secondary: #7928ca;
+            --accent: #00f2fe;
+            --glass-bg: rgba(26, 11, 46, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-card: rgba(255, 255, 255, 0.03);
             --text-main: #ffffff;
-            --text-sub: #d8b4e2;
-            --primary: #b5179e;
-            --primary-grad: linear-gradient(135deg, #7209b7 0%, #f72585 100%);
-            --accent: #f72585;
-            --border-color: #3d165f;
-            --badge-bg: #2c0b47;
-            --badge-border: #7209b7;
-            --badge-text: #ffb703;
-            --nav-bg: rgba(33, 13, 54, 0.98);
-            --nav-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            --nav-active-glow: 0 4px 18px rgba(247, 37, 133, 0.6);
+            --text-sub: #9e8fb2;
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            --nav-bg: rgba(18, 7, 34, 0.85);
         }
 
         body.theme-black-gold {
-            --bg-body: #070707;
-            --card-bg: #141414;
-            --text-main: #f5d77f;
-            --text-sub: #a39882;
+            --bg-base: #040404;
             --primary: #d4af37;
-            --primary-grad: linear-gradient(135deg, #d4af37 0%, #996515 100%);
+            --primary-glow: rgba(212, 175, 55, 0.35);
+            --secondary: #aa7c11;
             --accent: #ffd700;
-            --border-color: #2b2416;
-            --badge-bg: #1a1710;
-            --badge-border: #d4af37;
-            --badge-text: #ffd700;
-            --nav-bg: rgba(20, 20, 20, 0.98);
-            --nav-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-            --nav-active-glow: 0 4px 18px rgba(212, 175, 55, 0.5);
+            --glass-bg: rgba(20, 20, 20, 0.75);
+            --glass-border: rgba(212, 175, 55, 0.2);
+            --glass-card: rgba(212, 175, 55, 0.03);
+            --text-main: #f5d77f;
+            --text-sub: #8c8270;
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            --nav-bg: rgba(14, 14, 14, 0.9);
         }
 
         body.theme-white-pink {
-            --bg-body: #fff5f8;
-            --card-bg: #ffffff;
-            --text-main: #2d3142;
-            --text-sub: #8d99ae;
-            --primary: #ff4d8d;
-            --primary-grad: linear-gradient(135deg, #ff758c 0%, #ff4d8d 100%);
+            --bg-base: #fdfafd;
+            --primary: #ff3377;
+            --primary-glow: rgba(255, 51, 119, 0.3);
+            --secondary: #ff758c;
             --accent: #ff0055;
-            --border-color: #ffd6e0;
-            --badge-bg: #fff0f5;
-            --badge-border: #ffccd5;
-            --badge-text: #ff0055;
-            --nav-bg: rgba(255, 255, 255, 0.98);
-            --nav-shadow: 0 10px 30px rgba(255, 77, 141, 0.18);
-            --nav-active-glow: 0 4px 16px rgba(255, 77, 141, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 51, 119, 0.15);
+            --glass-card: rgba(255, 51, 119, 0.03);
+            --text-main: #1f1f24;
+            --text-sub: #78757f;
+            --card-shadow: 0 20px 40px rgba(255, 51, 119, 0.1);
+            --nav-bg: rgba(255, 255, 255, 0.9);
         }
 
         * {
@@ -66,12 +60,16 @@
         }
 
         body {
-            background-color: var(--bg-body);
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(121, 40, 202, 0.25) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(254, 44, 85, 0.2) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-main);
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            transition: 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .t-coin {
@@ -80,20 +78,28 @@
             justify-content: center;
             width: 20px;
             height: 20px;
-            background: radial-gradient(circle at 35% 35%, #fff176, #fbc02d 45%, #f57f17 90%);
-            color: #4e342e;
+            background: linear-gradient(135deg, #ffd700 0%, #ff9100 100%);
+            color: #3b1e00;
             border-radius: 50%;
             font-weight: 900;
             font-size: 11px;
-            border: 1px solid #fff9c4;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            line-height: 1;
+            border: 1.5px solid #fff3b0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
             flex-shrink: 0;
+        }
+
+        .glass-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
         }
 
         #rulesScreen {
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             padding: 24px 16px;
             display: flex;
             flex-direction: column;
@@ -103,170 +109,148 @@
         }
 
         .rules-card {
-            background: var(--card-bg);
-            border: 1.5px solid var(--border-color);
-            border-radius: 24px;
-            padding: 22px 18px;
+            padding: 28px 22px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            text-align: right;
         }
 
         .rules-title {
             text-align: center;
             font-size: 22px;
             font-weight: 900;
-            color: var(--badge-text);
-            margin-bottom: 12px;
-        }
-
-        .rules-welcome {
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--text-main);
-            margin-bottom: 14px;
-            font-weight: 700;
-        }
-
-        .rules-warning-title {
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 900;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
         .rules-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 18px;
+            gap: 12px;
+            margin: 20px 0;
         }
 
         .rules-list li {
-            background: rgba(255, 255, 255, 0.04);
-            border-right: 3px solid var(--accent);
-            padding: 8px 10px;
-            border-radius: 8px;
+            background: var(--glass-card);
+            border-right: 3px solid var(--primary);
+            padding: 12px 14px;
+            border-radius: 14px;
             font-size: 13px;
             line-height: 1.6;
             color: var(--text-sub);
+            border: 1px solid var(--glass-border);
+        }
+
+        [dir="ltr"] .rules-list li {
+            border-right: 1px solid var(--glass-border);
+            border-left: 3px solid var(--primary);
         }
 
         .checkbox-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            margin-bottom: 16px;
+            padding: 14px;
+            background: var(--glass-card);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
         }
 
         .checkbox-container input {
             width: 18px;
             height: 18px;
-            cursor: pointer;
             accent-color: var(--primary);
+            cursor: pointer;
         }
 
-        .checkbox-container span {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--badge-text);
-        }
-
-        .btn-continue {
+        .btn-action-main {
             width: 100%;
-            padding: 13px;
-            border-radius: 14px;
+            padding: 15px;
+            border-radius: 18px;
             border: none;
             font-size: 15px;
             font-weight: 900;
-            cursor: not-allowed;
-            background: #475569;
-            color: #94a3b8;
-            transition: all 0.3s;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 25px var(--primary-glow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-continue.active {
-            background: var(--primary-grad);
-            color: #ffffff;
-            cursor: pointer;
-            box-shadow: var(--nav-active-glow);
+        .btn-action-main:disabled {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
         }
 
         #authScreen {
             display: none;
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             padding: 30px 16px;
             text-align: center;
             flex-direction: column;
             justify-content: center;
         }
 
-        .logo {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin-bottom: 16px;
-        }
-
-        .logo div {
-            width: 55px;
-            height: 55px;
-            border-radius: 14px;
-            background: #2c0b47;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            border: 2px solid var(--border-color);
-        }
-
-        .auth-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 20px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .auth-card input {
-            background: var(--bg-body);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
+        .input-glass {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 14px 18px;
             color: var(--text-main);
-            font-size: 15px;
+            font-size: 14px;
             width: 100%;
             outline: none;
-            direction: ltr;
             text-align: center;
             font-weight: 700;
+            transition: all 0.3s ease;
         }
 
-        .btn-action-auth {
-            background: var(--primary-grad);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 900;
+        .input-glass:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .avatar-option {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2.5px solid var(--glass-border);
             cursor: pointer;
+            overflow: hidden;
+            background: #111;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: auto;
+        }
+
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .avatar-option.selected {
+            border-color: var(--primary);
+            transform: scale(1.12);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
         #appScreen {
             display: none;
             width: 100%;
             max-width: 420px;
-            background: var(--bg-body);
-            color: var(--text-main);
             min-height: 100vh;
             flex-direction: column;
             position: relative;
@@ -276,79 +260,65 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 18px;
-            background: var(--card-bg);
+            padding: 16px 20px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 10;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .header-title { font-weight: 900; font-size: 15px; }
-
         .star-badge {
-            background: var(--badge-bg);
-            padding: 4px 10px;
-            border-radius: 18px;
-            color: var(--badge-text);
+            background: var(--glass-card);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffd700;
             font-weight: 900;
-            font-size: 15px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            border: 1px solid var(--badge-border);
+            gap: 8px;
+            border: 1px solid var(--glass-border);
         }
 
         .tab-content { display: none; padding-bottom: 110px; flex: 1; }
         .tab-content.active { display: block; }
 
         .profile-banner {
-            background: var(--primary-grad);
-            padding: 22px 16px 18px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            padding: 26px 16px 22px;
             text-align: center;
             color: white;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: 0 10px 30px var(--primary-glow);
         }
 
         .avatar {
-            width: 75px;
-            height: 75px;
+            width: 86px;
+            height: 86px;
             border-radius: 50%;
-            border: 3px solid #fbc02d;
-            margin: 0 auto 8px;
-            object-fit: cover;
-            background: #210d36;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 3px solid #ffffff;
+            margin: 0 auto 10px;
+            background: #111;
             overflow: hidden;
-            font-size: 26px;
-            font-weight: 900;
-            color: #ffd700;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .display-username {
-            direction: ltr;
-            font-weight: 900;
-            font-size: 16px;
-            margin-bottom: 4px;
+            object-position: center top;
         }
 
         .card-home {
-            background: var(--card-bg);
-            margin: 16px;
-            border-radius: 22px;
-            padding: 24px 16px;
+            margin: 20px 16px;
+            border-radius: 30px;
+            padding: 34px 20px;
             text-align: center;
-            border: 1px solid var(--border-color);
-            min-height: 260px;
+            min-height: 290px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -356,54 +326,50 @@
         }
 
         .target-img-box {
-            width: 130px;
-            height: 130px;
+            width: 135px;
+            height: 135px;
             border-radius: 50%;
-            margin: 8px auto 14px;
+            margin-bottom: 16px;
             background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3.5px solid var(--accent);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            border: 3.5px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
             overflow: hidden;
-            font-size: 42px;
-            font-weight: 900;
-            color: #fff;
         }
 
         .target-img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
         }
 
         .target-username {
             direction: ltr;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 900;
-            margin-bottom: 16px;
+            margin-bottom: 22px;
         }
 
-        .action-btns { display: flex; gap: 10px; justify-content: center; width: 100%; }
+        .action-btns { display: flex; gap: 12px; justify-content: center; width: 100%; }
 
         .btn-skip {
             flex: 1;
-            padding: 11px;
-            border-radius: 14px;
-            border: none;
-            background: #64748b;
-            color: white;
+            padding: 13px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-sub);
             font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
         .btn-action {
-            flex: 1.5;
-            padding: 11px;
-            border-radius: 14px;
+            flex: 1.6;
+            padding: 13px;
+            border-radius: 16px;
             border: none;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             color: white;
             font-weight: 900;
             cursor: pointer;
@@ -411,205 +377,107 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            box-shadow: 0 6px 20px var(--primary-glow);
+            transition: transform 0.2s;
         }
 
-        .list-group { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .btn-action:active { transform: scale(0.97); }
+
+        .list-group { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 
         .list-item {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 12px 16px;
+            border-radius: 20px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid var(--border-color);
         }
-
-        .item-info-pack {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .pack-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            background: rgba(104, 125, 246, 0.1);
-            color: var(--primary);
-        }
-
-        .pack-title { font-size: 14px; font-weight: 800; }
-        .pack-desc { font-size: 11px; color: var(--text-sub); }
 
         .btn-price {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             color: white;
-            padding: 7px 14px;
-            border-radius: 10px;
+            padding: 8px 18px;
+            border-radius: 14px;
             border: none;
             font-weight: 800;
-            font-size: 12.5px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
         .direct-link-card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            margin: 14px 14px 0;
-            padding: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .direct-link-card input {
-            background: var(--bg-body);
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            padding: 11px 12px;
-            width: 100%;
-            font-size: 13px;
-            color: var(--text-main);
-            outline: none;
-            direction: ltr;
-            margin-top: 6px;
-            font-weight: 600;
-        }
-
-        .shop-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 16px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .btn-buy-coin {
-            background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
-            color: #451a03;
-            font-weight: 900;
-            font-size: 13.5px;
-            padding: 9px 16px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .theme-select-box { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-        .theme-card { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 14px; }
-        .theme-1-preview { background: #210d36; color: #fff; border: 1px solid #3d165f; }
-        .theme-2-preview { background: #141414; color: #ffd700; border: 1px solid #d4af37; }
-        .theme-3-preview { background: #fff5f8; color: #ff0055; border: 1px solid #ffd6e0; }
-
-        .btn-danger-reset {
-            width: 100%;
-            background: #ef4444;
-            color: #ffffff;
-            font-weight: 900;
-            font-size: 13px;
-            padding: 12px;
-            border-radius: 14px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
-            transition: 0.2s;
-        }
-
-        .order-history-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 12px;
-            margin-top: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .custom-popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
+            border-radius: 24px;
+            margin: 16px 16px 0;
             padding: 20px;
         }
 
-        .custom-popup-box {
-            background: var(--card-bg);
-            border: 1.5px solid var(--border-color);
-            border-radius: 24px;
-            padding: 26px 20px;
-            max-width: 320px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .theme-select-box { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .theme-card { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 13.5px; border: 1px solid var(--glass-border); }
+        .theme-1-preview { background: #1a0b2e; color: #fff; }
+        .theme-2-preview { background: #141414; color: #ffd700; }
+        .theme-3-preview { background: #ffffff; color: #ff3377; }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .popup-t-coin {
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle at 35% 35%, #fff59d, #fbc02d 40%, #e65100 95%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 900;
-            color: #3e2723;
-            margin: 0 auto 16px;
-            border: 3px solid #fffde7;
-            box-shadow: 0 8px 20px rgba(245, 127, 23, 0.4);
-        }
-
-        .popup-title { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
-        .popup-message { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 18px; }
-
-        .popup-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 11px;
+        .lang-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 12px;
             border-radius: 14px;
-            font-size: 14px;
-            font-weight: 900;
+            font-weight: 800;
             cursor: pointer;
-            width: 100%;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            border-color: var(--primary);
+            background: rgba(254, 44, 85, 0.15);
+            color: var(--primary);
+        }
+
+        .order-history-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 14px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .bottom-nav-wrapper {
             position: fixed;
-            bottom: 8px;
+            bottom: 12px;
             left: 0; right: 0;
             margin: auto;
-            max-width: 415px;
-            width: 96%;
+            max-width: 400px;
+            width: 92%;
             z-index: 999;
         }
 
         .bottom-nav {
             background: var(--nav-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--nav-shadow);
-            border-radius: 22px;
-            height: 60px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-radius: 26px;
+            height: 66px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 2px;
+            padding: 0 8px;
         }
 
         .nav-item {
@@ -618,426 +486,443 @@
             align-items: center;
             justify-content: center;
             color: var(--text-sub);
-            font-size: 9px;
+            font-size: 10.5px;
             font-weight: 800;
             background: transparent;
             border: none;
             cursor: pointer;
-            gap: 2px;
-            position: relative;
-            padding: 4px 0;
+            gap: 4px;
             flex: 1;
-            border-radius: 12px;
+            transition: all 0.25s ease;
         }
 
-        .nav-item span.icon { 
-            font-size: 16px; 
-            line-height: 1; 
-            display: flex;
+        .nav-item.active { 
+            color: var(--primary); 
+            transform: translateY(-2px);
+        }
+
+        .custom-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
             align-items: center;
             justify-content: center;
-            height: 20px;
+            padding: 20px;
         }
 
-        .nav-item.active { color: var(--primary); }
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            width: 10px;
-            height: 2.5px;
-            background: var(--primary);
-            border-radius: 4px;
+        .custom-popup-box {
+            border-radius: 30px;
+            padding: 30px 24px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
 <body class="theme-purple-red">
 
-    <!-- ١. شاشەیا یاسایان -->
+    <!-- ١. یاساکان -->
     <div id="rulesScreen">
-        <div class="rules-card">
-            <h2 class="rules-title">RULES</h2>
-            <p class="rules-welcome">ئــەڤ بــەرنــامــە هــاتــیە دروست کرن بۆ ئــەکــتیـڤ کرنا تــیک تــوکی تە.</p>
-            <div class="rules-warning-title">⚠️ تـــێــبینی:</div>
+        <div class="glass-box rules-card">
+            <h2 class="rules-title" data-i18n="rules_title">یاساکانی کارکردن</h2>
+            <p style="font-size: 13px; color: var(--text-sub); text-align: right;" data-i18n="rules_sub">سیستەمی چالاککردنی ئەکاونتی تیکتۆک</p>
             <ul class="rules-list">
-                <li><b>1 -</b> تــو کەسەکێ فولو بکی پاشان T بوتە بهێن تو ئێک سەر لاببەی دێ هێە باند کرن.</li>
-                <li><b>2 -</b> تو کەسەکێ لایک بکەی T وەڕبگری پاشان لایکێ لا ببە دێ ئێک سەر هێە باند کرن.</li>
+                <li data-i18n="rule_1">هەر فۆڵۆو یان لایکێک ئەنجام بدەیت و دواتر لایبەریت، ڕاستەوخۆ بلۆک دەکرێیت.</li>
+                <li data-i18n="rule_2">پێویستە هەنگاوەکان بە تەواوی جێبەجێ بکەیت تاوەکو کوین بۆ هەژمارەکەت بێت.</li>
             </ul>
             <label class="checkbox-container">
                 <input type="checkbox" id="acceptRulesCheckbox" onchange="toggleContinueBtn()">
-                <span>رازیمە</span>
+                <span style="font-size: 13px; font-weight: 800;" data-i18n="agree_rules">ڕازیم بە یاساکان</span>
             </label>
-            <button id="continueBtn" class="btn-continue" onclick="proceedToApp()" disabled>بــەڕدەوام</button>
+            <button id="continueBtn" class="btn-action-main" onclick="proceedToApp()" disabled data-i18n="btn_continue">بەردەوامبوون</button>
         </div>
     </div>
 
-    <!-- ٢. پەڕەی لۆگین -->
+    <!-- ٢. چوونەژوورەوە -->
     <div id="authScreen">
-        <div class="logo">
-            <div>🎵</div>
-        </div>
-        <h2 style="font-size: 20px; margin-bottom: 4px; color:#fff;">تۆمارکرن و چوونەژوورێ</h2>
-        <p style="color: var(--text-sub); font-size: 12.5px; margin-bottom: 18px;">ناڤێ تیکتۆکا خۆ بنڤێسە بێی پاسۆرد</p>
-        <div class="auth-card">
-            <input type="text" id="authUsername" placeholder="@username">
-            <button class="btn-action-auth" onclick="handleLogin()">دەستپێبکە</button>
+        <div class="glass-box" style="padding: 32px 22px;">
+            <h1 style="font-size: 26px; font-weight: 900; margin-bottom: 6px;">TikFans</h1>
+            <p style="color: var(--text-sub); font-size: 12.5px; margin-bottom: 18px;" data-i18n="auth_sub">ناوەکەت بنووسە و وێنەی پرۆفایل دیاری بکە</p>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <input type="text" id="authUsername" class="input-glass" placeholder="@username" direction="ltr">
+                <div style="font-size: 12.5px; font-weight: 800; color: var(--text-sub); text-align: right;" data-i18n="select_avatar">هەڵبژاردنی وێنەی پرۆفایل:</div>
+                <div class="avatar-grid" id="authAvatarGrid"></div>
+                <button class="btn-action-main" onclick="handleLogin()" data-i18n="btn_start">دەستپێکردن</button>
+            </div>
         </div>
     </div>
 
-    <!-- ٣. ئەپڵیکەیشن -->
+    <!-- ٣. ئەپی سەرەکی -->
     <div id="appScreen">
         <div class="top-bar">
-            <div onclick="logout()" style="font-weight: 700; color: #fe2c55; cursor: pointer; font-size: 13.5px;">دەرکەفتن</div>
-            <div id="headerTitle" class="header-title">کۆمکرنا کوینێن T</div>
+            <div onclick="logout()" style="font-weight: 800; color: var(--primary); cursor: pointer; font-size: 13px;" data-i18n="logout">دەرچوون</div>
+            <div id="headerTitle" style="font-weight: 900; font-size: 14px;">کۆکردنەوەی T</div>
             <div class="star-badge">
                 <span id="starCount">0</span>
                 <span class="t-coin">T</span>
             </div>
         </div>
 
-        <!-- بەشی Home -->
+        <!-- بەشی سەرەکی -->
         <div class="tab-content active" id="tabHome">
-            <div class="card-home" id="cardContainer"></div>
+            <div class="glass-box card-home" id="cardContainer"></div>
         </div>
 
         <!-- بەشی فۆڵۆوەر -->
         <div class="tab-content" id="tabFollowers">
             <div class="profile-banner">
-                <div style="font-size: 24px; margin-bottom: 4px;">🎵</div>
-                <div id="userAvatar" class="avatar">👤</div>
-                <div id="showUsername" class="display-username">@username</div>
-                <p style="font-size: 12.5px; opacity: 0.9;">فۆڵۆوەری ڕاستەقینە بۆ هەژمارا خۆ زێدە بکە</p>
+                <div id="userAvatar" class="avatar"></div>
+                <div id="showUsername" style="font-weight: 900; font-size: 17px; direction: ltr;">@username</div>
             </div>
             <div class="list-group">
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+5 فۆڵۆوەر</div>
-                            <div class="pack-desc">٥ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+5 <span data-i18n="nav_follow">فۆڵۆوەر</span></span>
                     <button class="btn-price" onclick="freeOrder('follower', 5, 50, 'تیکتۆک فۆڵۆوەر')">50 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+10 فۆڵۆوەر</div>
-                            <div class="pack-desc">١٠ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+10 <span data-i18n="nav_follow">فۆڵۆوەر</span></span>
                     <button class="btn-price" onclick="freeOrder('follower', 10, 100, 'تیکتۆک فۆڵۆوەر')">100 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+15 فۆڵۆوەر</div>
-                            <div class="pack-desc">١٥ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" onclick="freeOrder('follower', 15, 150, 'تیکتۆک فۆڵۆوەر')">150 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+20 فۆڵۆوەر</div>
-                            <div class="pack-desc">٢٠ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+20 <span data-i18n="nav_follow">فۆڵۆوەر</span></span>
                     <button class="btn-price" onclick="freeOrder('follower', 20, 200, 'تیکتۆک فۆڵۆوەر')">200 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+100 فۆڵۆوەر</div>
-                            <div class="pack-desc">١٠٠ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+100 <span data-i18n="nav_follow">فۆڵۆوەر</span></span>
                     <button class="btn-price" onclick="freeOrder('follower', 100, 1000, 'تیکتۆک فۆڵۆوەر')">1000 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon">👤</div>
-                        <div>
-                            <div class="pack-title">+1000 فۆڵۆوەر</div>
-                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ فۆڵۆو کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" onclick="freeOrder('follower', 1000, 10000, 'تیکتۆک فۆڵۆوەر')">10000 <span class="t-coin">T</span></button>
-                </div>
             </div>
         </div>
 
-        <!-- بەشی لایکەکان -->
+        <!-- بەشی لایک -->
         <div class="tab-content" id="tabLikes">
-            <div class="profile-banner" style="background: linear-gradient(135deg, #fe2c55 0%, #d62047 100%); display: flex; flex-direction: column; align-items: center;">
-                <div style="font-size: 24px; margin-bottom: 4px;">❤️</div>
-                <h3 style="margin-bottom: 4px;">زێدەکرنا لایکان ❤️</h3>
-                <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
-            </div>
-            <div class="direct-link-card">
-                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی پۆست یان ڤیدیۆیا تیکتۆکێ:</label>
-                <input type="text" id="directVideoLinkInput" placeholder="https://www.tiktok.com/@user/video/...">
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 12px; font-weight: 800; color: var(--text-sub);" data-i18n="link_input_lbl">لینکی پۆستی تیکتۆک:</label>
+                <input type="text" id="directVideoLinkInput" class="input-glass" style="margin-top: 8px;" placeholder="https://www.tiktok.com/@user/video/...">
             </div>
             <div class="list-group">
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+5 لایک</div>
-                            <div class="pack-desc">٥ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(5, 50)">50 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+5 <span data-i18n="nav_like">لایک</span></span>
+                    <button class="btn-price" onclick="submitDirectLike(5, 50)">50 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+10 لایک</div>
-                            <div class="pack-desc">١٠ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(10, 100)">100 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+10 <span data-i18n="nav_like">لایک</span></span>
+                    <button class="btn-price" onclick="submitDirectLike(10, 100)">100 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+15 لایک</div>
-                            <div class="pack-desc">١٥ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(15, 150)">150 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+20 <span data-i18n="nav_like">لایک</span></span>
+                    <button class="btn-price" onclick="submitDirectLike(20, 200)">200 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+20 لایک</div>
-                            <div class="pack-desc">٢٠ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(20, 200)">200 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+100 لایک</div>
-                            <div class="pack-desc">١٠٠ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(100, 1000)">1000 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(254,44,85,0.1); color: var(--accent);">❤️</div>
-                        <div>
-                            <div class="pack-title">+1000 لایک</div>
-                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ لایک کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: var(--accent);" onclick="submitDirectLike(1000, 10000)">10000 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+100 <span data-i18n="nav_like">لایک</span></span>
+                    <button class="btn-price" onclick="submitDirectLike(100, 1000)">1000 <span class="t-coin">T</span></button>
                 </div>
             </div>
         </div>
 
-        <!-- بەشی کۆمێنتەکان -->
+        <!-- بەشی کۆمێنت -->
         <div class="tab-content" id="tabComments">
-            <div class="profile-banner" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); display: flex; flex-direction: column; align-items: center;">
-                <div style="font-size: 24px; margin-bottom: 4px;">💬</div>
-                <h3 style="margin-bottom: 4px;">زێدەکرنا کۆمێنتان 💬</h3>
-                <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
-            </div>
-            <div class="direct-link-card">
-                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی پۆست یان ڤیدیۆیا تیکتۆکێ:</label>
-                <input type="text" id="directCommentLinkInput" placeholder="https://www.tiktok.com/@user/video/...">
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 12px; font-weight: 800; color: var(--text-sub);" data-i18n="link_input_lbl">لینکی پۆستی تیکتۆک:</label>
+                <input type="text" id="directCommentLinkInput" class="input-glass" style="margin-top: 8px;" placeholder="https://www.tiktok.com/@user/video/...">
             </div>
             <div class="list-group">
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+5 کۆمێنت</div>
-                            <div class="pack-desc">٥ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(5, 50)">50 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+5 <span data-i18n="nav_comment">کۆمێنت</span></span>
+                    <button class="btn-price" onclick="submitDirectComment(5, 50)">50 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+10 کۆمێنت</div>
-                            <div class="pack-desc">١٠ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(10, 100)">100 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+10 <span data-i18n="nav_comment">کۆمێنت</span></span>
+                    <button class="btn-price" onclick="submitDirectComment(10, 100)">100 <span class="t-coin">T</span></button>
                 </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+15 کۆمێنت</div>
-                            <div class="pack-desc">١٥ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(15, 150)">150 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+20 کۆمێنت</div>
-                            <div class="pack-desc">٢٠ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(20, 200)">200 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+100 کۆمێنت</div>
-                            <div class="pack-desc">١٠٠ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(100, 1000)">1000 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">💬</div>
-                        <div>
-                            <div class="pack-title">+1000 کۆمێنت</div>
-                            <div class="pack-desc">١٠٠٠ کەسێن جودا دێ کۆمێنت کەن</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(1000, 10000)">10000 <span class="t-coin">T</span></button>
+                <div class="glass-box list-item">
+                    <span style="font-weight: 800;">+20 <span data-i18n="nav_comment">کۆمێنت</span></span>
+                    <button class="btn-price" onclick="submitDirectComment(20, 200)">200 <span class="t-coin">T</span></button>
                 </div>
             </div>
         </div>
 
-        <!-- بەشی کڕینی کوین -->
+        <!-- بەشی کڕین -->
         <div class="tab-content" id="tabShop">
-            <div class="profile-banner" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-                <h3 style="margin-bottom: 4px;">کڕینا کوینێن T 💳</h3>
-                <p style="font-size: 12.5px; opacity: 0.95;">کۆینێن خۆ زێدە بکە ب بلەزترین شێوە</p>
-            </div>
             <div class="list-group">
-                <div class="shop-card">
-                    <div style="display:flex; align-items:center; gap:12px;">
-                        <span class="t-coin" style="width:30px; height:30px; font-size:16px;">T</span>
-                        <div>
-                            <div style="font-size: 15px; font-weight: 900;">250 T Coin</div>
-                            <div style="font-size: 11.5px; color: var(--text-sub);">گەهاندنا دەستبەجێ</div>
-                        </div>
+                <div class="glass-box list-item">
+                    <div>
+                        <div style="font-weight: 900; font-size: 15px;">250 T Coin</div>
+                        <div style="font-size: 11px; color: var(--text-sub);" data-i18n="fast_delivery">گەیشتنی خێرا</div>
                     </div>
-                    <button class="btn-buy-coin" onclick="buyCoinsTelegram()">3,000 دینار</button>
+                    <button class="btn-price" onclick="buyCoinsTelegram()">3,000 <span data-i18n="currency">دینار</span></button>
                 </div>
-                <div class="shop-card">
-                    <div style="display:flex; align-items:center; gap:12px;">
-                        <span class="t-coin" style="width:30px; height:30px; font-size:16px;">T</span>
-                        <div>
-                            <div style="font-size: 15px; font-weight: 900;">750 T Coin</div>
-                            <div style="font-size: 11.5px; color: var(--text-sub);">باشترین ئۆفەر ⭐</div>
-                        </div>
+                <div class="glass-box list-item">
+                    <div>
+                        <div style="font-weight: 900; font-size: 15px;">750 T Coin</div>
+                        <div style="font-size: 11px; color: var(--text-sub);" data-i18n="best_offer">باشترین ئۆفەر</div>
                     </div>
-                    <button class="btn-buy-coin" onclick="buyCoinsTelegram()">7,000 دینار</button>
+                    <button class="btn-price" onclick="buyCoinsTelegram()">7,000 <span data-i18n="currency">دینار</span></button>
                 </div>
             </div>
         </div>
 
-        <!-- بەشی ڕێکخستن و داواکارییەکان -->
+        <!-- ڕێکخستنەکان -->
         <div class="tab-content" id="tabSettings">
-            <div class="profile-banner">
-                <h3 style="margin-bottom: 4px;">ڕێکخستن و داواکارییەکان ⚙️</h3>
-                <p style="font-size: 12.5px; opacity: 0.9;">چاودێری کەمپین، دیاری، و ڕەنگ</p>
-            </div>
-            
-            <div class="direct-link-card" style="margin-top: 14px;">
-                <label style="font-size: 13px; font-weight: 800; color: var(--badge-text);">📦 داواکارییەکانی من (My Orders):</label>
-                <div id="myOrdersList" style="margin-top: 8px;">
-                    <p style="font-size: 12px; color: var(--text-sub);">هیچ داواکارییەکت تۆمار نەکردووە.</p>
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 13px; font-weight: 800;" data-i18n="select_language">هەڵبژاردنی زمان:</label>
+                <div class="lang-grid">
+                    <button class="lang-btn" id="lang-ckb" onclick="setLanguage('ckb')">سۆرانی</button>
+                    <button class="lang-btn" id="lang-badini" onclick="setLanguage('badini')">بادینی</button>
+                    <button class="lang-btn" id="lang-en" onclick="setLanguage('en')">English</button>
+                    <button class="lang-btn" id="lang-ar" onclick="setLanguage('ar')">العربية</button>
                 </div>
             </div>
 
-            <div class="direct-link-card" style="margin-top: 14px;">
-                <label style="font-size: 12.5px; font-weight: 800; color: var(--text-main);">🎁 کۆدی دیاری (Redeem Code):</label>
-                <div style="display: flex; gap: 8px; margin-top: 6px;">
-                    <input type="text" id="redeemCodeInput" placeholder="کۆدێ خۆ لێرە بنڤێسە" style="margin: 0; text-transform: uppercase;">
-                    <button class="btn-price" onclick="redeemCode()" style="padding: 10px 16px; border-radius: 10px;">وەرگرتن</button>
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 13px; font-weight: 800;" data-i18n="my_orders">داواکارییەکانم:</label>
+                <div id="myOrdersList" style="margin-top: 8px;"></div>
+            </div>
+
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 12.5px; font-weight: 800;" data-i18n="change_avatar">گۆڕینی وێنەی پرۆفایل:</label>
+                <div class="avatar-grid" id="settingsAvatarGrid"></div>
+            </div>
+
+            <div class="glass-box direct-link-card">
+                <label style="font-size: 12.5px; font-weight: 800;" data-i18n="redeem_code">کۆدی دیاری:</label>
+                <div style="display: flex; gap: 8px; margin-top: 8px;">
+                    <input type="text" id="redeemCodeInput" class="input-glass" placeholder="Code" style="text-transform: uppercase;">
+                    <button class="btn-price" onclick="redeemCode()" data-i18n="btn_claim">وەرگرتن</button>
                 </div>
             </div>
 
             <div class="list-group">
-                <h4 style="font-size: 14px; margin-top: 4px;">ڕەنگێ ئەپێ هەڵبژێرە:</h4>
                 <div class="theme-select-box">
-                    <div class="theme-card theme-1-preview" onclick="changeTheme('theme-purple-red')">
-                        <span>🟣 Purple and Red</span>
-                        <span id="check-purple-red">✔</span>
-                    </div>
-                    <div class="theme-card theme-2-preview" onclick="changeTheme('theme-black-gold')">
-                        <span>🟡 Black and Gold</span>
-                        <span id="check-black-gold"></span>
-                    </div>
-                    <div class="theme-card theme-3-preview" onclick="changeTheme('theme-white-pink')">
-                        <span>🌸 White and Some Pink</span>
-                        <span id="check-white-pink"></span>
-                    </div>
+                    <div class="theme-card theme-1-preview" onclick="changeTheme('theme-purple-red')">Dark Purple</div>
+                    <div class="theme-card theme-2-preview" onclick="changeTheme('theme-black-gold')">Gold Black</div>
+                    <div class="theme-card theme-3-preview" onclick="changeTheme('theme-white-pink')">Pure White</div>
                 </div>
-
-                <h4 style="font-size: 14px; margin-top: 12px; color: #ef4444;">سڕینەوە و خاوێنکردنەوە:</h4>
-                <button class="btn-danger-reset" onclick="resetEverythingMaster()">🗑️ سفرکردنی بەشی کۆمکردن و کۆین</button>
             </div>
         </div>
 
-        <!-- شریتی خوارەوە (Bottom Nav) -->
+        <!-- شریتی خوارەوە -->
         <div class="bottom-nav-wrapper">
             <div class="bottom-nav">
-                <button class="nav-item active" id="btnNavHome" onclick="switchTab('tabHome', 'کۆمکرنا کوینێن T', this)">
-                    <span class="icon"><span class="t-coin" style="width:15px; height:15px; font-size:8px;">T</span></span>
-                    <span>کۆمکرن</span>
+                <button class="nav-item active" id="btnNavHome" onclick="switchTab('tabHome', 'nav_collect', this)">
+                    <span data-i18n="nav_collect">کۆکردن</span>
                 </button>
-                <button class="nav-item" id="btnNavFollow" onclick="switchTab('tabFollowers', 'فۆلۆوەرێن تیکتۆکێ', this)">
-                    <span class="icon">👥</span>
-                    <span>فۆلۆوەر</span>
+                <button class="nav-item" id="btnNavFollow" onclick="switchTab('tabFollowers', 'nav_follow', this)">
+                    <span data-i18n="nav_follow">فۆڵۆوەر</span>
                 </button>
-                <button class="nav-item" id="btnNavLike" onclick="switchTab('tabLikes', 'زێدەکرنا لایکان', this)">
-                    <span class="icon">❤️</span>
-                    <span>لایک</span>
+                <button class="nav-item" id="btnNavLike" onclick="switchTab('tabLikes', 'nav_like', this)">
+                    <span data-i18n="nav_like">لایک</span>
                 </button>
-                <button class="nav-item" id="btnNavComment" onclick="switchTab('tabComments', 'زێدەکرنا کۆمێنتان', this)">
-                    <span class="icon">💬</span>
-                    <span>کۆمێنت</span>
+                <button class="nav-item" id="btnNavComment" onclick="switchTab('tabComments', 'nav_comment', this)">
+                    <span data-i18n="nav_comment">کۆمێنت</span>
                 </button>
-                <button class="nav-item" id="btnNavShop" onclick="switchTab('tabShop', 'کڕینا کوینان', this)">
-                    <span class="icon">💳</span>
-                    <span>کڕین</span>
+                <button class="nav-item" id="btnNavShop" onclick="switchTab('tabShop', 'nav_shop', this)">
+                    <span data-i18n="nav_shop">کڕین</span>
                 </button>
-                <button class="nav-item" id="btnNavSetting" onclick="switchTab('tabSettings', 'ڕێکخستن', this)">
-                    <span class="icon">⚙️</span>
-                    <span>ڕێکخستن</span>
+                <button class="nav-item" id="btnNavSetting" onclick="switchTab('tabSettings', 'nav_setting', this)">
+                    <span data-i18n="nav_setting">ڕێکخستن</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- پۆپ-ئەپی 3D -->
+    <!-- پۆپ-ئەپ -->
     <div class="custom-popup-overlay" id="successPopup">
-        <div class="custom-popup-box">
-            <div class="popup-t-coin">T</div>
-            <h3 class="popup-title" id="popupTitleText">داخوازی هاتە تۆمارکرن!</h3>
-            <p class="popup-message" id="popupMessageText"></p>
-            <button class="popup-btn" onclick="closeSuccessPopup()">باشە</button>
+        <div class="glass-box custom-popup-box">
+            <h3 style="font-size: 16px; font-weight: 900; margin-bottom: 8px;" id="popupTitleText"></h3>
+            <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 20px;" id="popupMessageText"></p>
+            <button class="btn-action-main" onclick="closeSuccessPopup()" data-i18n="btn_ok">باشە</button>
         </div>
     </div>
 
     <script>
+        const PRESET_AVATARS = [
+            { id: "ronaldo", url: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=250&h=250&crop=faces" },
+            { id: "messi", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250&crop=faces" },
+            { id: "neymar", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=250&h=250&crop=faces" },
+            { id: "haaland", url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=250&h=250&crop=faces" }
+        ];
+
+        const TRANSLATIONS = {
+            ckb: {
+                rules_title: "یاساکانی کارکردن",
+                rules_sub: "سیستەمی چالاککردنی ئەکاونتی تیکتۆک",
+                rule_1: "هەر فۆڵۆو یان لایکێک ئەنجام بدەیت و دواتر لایبەریت، ڕاستەوخۆ بلۆک دەکرێیت.",
+                rule_2: "پێویستە هەنگاوەکان بە تەواوی جێبەجێ بکەیت تاوەکو کوین بۆ هەژمارەکەت بێت.",
+                agree_rules: "ڕازیم بە یاساکان",
+                btn_continue: "بەردەوامبوون",
+                auth_sub: "ناوەکەت بنووسە و وێنەی پرۆفایل دیاری بکە",
+                select_avatar: "هەڵبژاردنی وێنەی پرۆفایل:",
+                btn_start: "دەستپێکردن",
+                logout: "دەرچوون",
+                nav_collect: "کۆکردن",
+                nav_follow: "فۆڵۆوەر",
+                nav_like: "لایک",
+                nav_comment: "کۆمێنت",
+                nav_shop: "کڕین",
+                nav_setting: "ڕێکخستن",
+                link_input_lbl: "لینکی پۆستی تیکتۆک:",
+                fast_delivery: "گەیشتنی خێرا",
+                best_offer: "باشترین ئۆفەر",
+                currency: "دینار",
+                select_language: "هەڵبژاردنی زمان:",
+                my_orders: "داواکارییەکانم:",
+                change_avatar: "گۆڕینی وێنەی پرۆفایل:",
+                redeem_code: "کۆدی دیاری:",
+                btn_claim: "وەرگرتن",
+                btn_ok: "باشە",
+                no_tasks: "هیچ داواکارییەک بەردەست نییە",
+                all_done: "هەموو داواکارییەکانت تەواو کرد",
+                btn_skip: "دواتر",
+                do_follow: "فۆڵۆو بکە",
+                do_like: "لایک بکە",
+                do_comment: "کۆمێنت بکە",
+                alert_title: "ئاگاداری",
+                success_title: "سەرکەوتوو بوو",
+                error_url: "تکایە لینکێکی ڕاستی تیکتۆک بنووسە",
+                no_coins: "کۆینی پێویستت نییە",
+                order_placed: "داواکارییەکەت سەرکەوتووانە دانرا",
+                profile_updated: "وێنەی پرۆفایل گۆڕدرا",
+                first_do_action: "سەرەتا کردارەکە تەواو بکە پاشان بگەڕێوە",
+                completed_text: "تەواو بووە",
+                no_active_orders: "هیچ داواکارییەکی ئەکتیڤت نییە."
+            },
+            badini: {
+                rules_title: "یاسایێن کارکرنێ",
+                rules_sub: "سیستەمێ چالاککرنا ئەکاونتێ تیکتۆکێ",
+                rule_1: "هەر فۆڵۆو یان لایکەکێ بکەی و پاشان لابدەی، دێ ئێک سەر هێیە باند کرن.",
+                rule_2: "پێتڤیە پێنگاڤان ب دروستی بجهـ بینی دا کۆین بۆ هەژمارا تە بهێن.",
+                agree_rules: "رازیمە ب یاسایان",
+                btn_continue: "بەردەوامبوون",
+                auth_sub: "ناڤێ خۆ بنڤیسە و وێنەیێ پڕۆفایلی دیار بکە",
+                select_avatar: "هەڵبژاردنا وێنەیێ پڕۆفایلی:",
+                btn_start: "دەستپێبکە",
+                logout: "دەرکەفتن",
+                nav_collect: "کۆمکرن",
+                nav_follow: "فۆڵۆوەر",
+                nav_like: "لایک",
+                nav_comment: "کۆمێنت",
+                nav_shop: "کڕین",
+                nav_setting: "ڕێکخستن",
+                link_input_lbl: "لینکا پۆستێ تیکتۆکێ:",
+                fast_delivery: "گەهاندنا لەزگین",
+                best_offer: "باشترین ئۆفەر",
+                currency: "دینار",
+                select_language: "هەڵبژاردنا زمانی:",
+                my_orders: "داواکاریێن من:",
+                change_avatar: "گوهۆڕینا وێنەیێ پڕۆفایلی:",
+                redeem_code: "کۆدێ دیاریێ:",
+                btn_claim: "وەرگرتن",
+                btn_ok: "باشە",
+                no_tasks: "چ داواکاری بەردەست نینن",
+                all_done: "تە هەمی داواکاری ب دوماهی ئینان",
+                btn_skip: "تێپەڕین",
+                do_follow: "فۆڵۆو بکە",
+                do_like: "لایک بکە",
+                do_comment: "کۆمێنت بنڤیسە",
+                alert_title: "ئاگاداری",
+                success_title: "سەرکەفتوو بوو",
+                error_url: "تکایە لینکەکا دروستا تیکتۆکێ بنڤیسە",
+                no_coins: "کۆینێن تە بەس نینن",
+                order_placed: "داخوازی ب سەرکەفتوویی هاتە دانان",
+                profile_updated: "وێنەیێ پڕۆفایلی هاتە گوهۆڕین",
+                first_do_action: "ل دەستپێکێ کردارێ تەمام بکە پاشان ڤەگەڕە",
+                completed_text: "هاتە ئەنجامدان",
+                no_active_orders: "چ داواکاریێن تە یێن ئەکتیڤ نینن."
+            },
+            en: {
+                rules_title: "Rules of Use",
+                rules_sub: "TikTok Account Growth Platform",
+                rule_1: "Unfollowing or unliking after earning coins leads to an instant ban.",
+                rule_2: "You must complete all actions correctly to receive coins.",
+                agree_rules: "I agree to the rules",
+                btn_continue: "Continue",
+                auth_sub: "Enter your username and pick an avatar",
+                select_avatar: "Choose Avatar:",
+                btn_start: "Get Started",
+                logout: "Logout",
+                nav_collect: "Earn",
+                nav_follow: "Followers",
+                nav_like: "Likes",
+                nav_comment: "Comments",
+                nav_shop: "Shop",
+                nav_setting: "Settings",
+                link_input_lbl: "TikTok Post Link:",
+                fast_delivery: "Fast Delivery",
+                best_offer: "Best Offer",
+                currency: "IQD",
+                select_language: "Choose Language:",
+                my_orders: "My Orders:",
+                change_avatar: "Change Profile Avatar:",
+                redeem_code: "Gift Code:",
+                btn_claim: "Redeem",
+                btn_ok: "OK",
+                no_tasks: "No campaigns available right now",
+                all_done: "You have completed all campaigns",
+                btn_skip: "Skip",
+                do_follow: "Follow",
+                do_like: "Like",
+                do_comment: "Comment",
+                alert_title: "Notice",
+                success_title: "Success",
+                error_url: "Please provide a valid TikTok link",
+                no_coins: "Insufficient coins",
+                order_placed: "Your order has been placed successfully",
+                profile_updated: "Profile avatar updated",
+                first_do_action: "Complete the action in TikTok first, then return",
+                completed_text: "Completed",
+                no_active_orders: "You have no active orders."
+            },
+            ar: {
+                rules_title: "شروط الاستخدام",
+                rules_sub: "نظام تفاعل وحسابات تيك توك",
+                rule_1: "إلغاء المتابعة أو الإعجاب بعد استلام العملات يؤدي للحظر فوراً.",
+                rule_2: "يجب إتمام جميع الخطوات بشكل صحيح لكسب العملات.",
+                agree_rules: "أوافق على الشروط",
+                btn_continue: "استمرار",
+                auth_sub: "اكتب اسم المستخدم واختر صورة الحساب",
+                select_avatar: "اختر الصورة الشخصية:",
+                btn_start: "ابدأ الآن",
+                logout: "تسجيل الخروج",
+                nav_collect: "تجميع",
+                nav_follow: "متابعين",
+                nav_like: "إعجابات",
+                nav_comment: "تعليقات",
+                nav_shop: "شراء",
+                nav_setting: "الإعدادات",
+                link_input_lbl: "رابط فيديو تيك توك:",
+                fast_delivery: "تسليم فوري",
+                best_offer: "العرض الأفضل",
+                currency: "دينار",
+                select_language: "اختيار اللغة:",
+                my_orders: "طلباتي الحالية:",
+                change_avatar: "تغيير الصورة الشخصية:",
+                redeem_code: "رمز الهدية:",
+                btn_claim: "استلام",
+                btn_ok: "حسناً",
+                no_tasks: "لا توجد طلبات متاحة حالياً",
+                all_done: "لقد أكملت جميع المهام المتاحة",
+                btn_skip: "تخطي",
+                do_follow: "متابعة",
+                do_like: "إعجاب",
+                do_comment: "تعليق",
+                alert_title: "تنبيه",
+                success_title: "تم بنجاح",
+                error_url: "يرجى إدخال رابط تيك توك صحيح",
+                no_coins: "رصيد العملات غير كافٍ",
+                order_placed: "تم تسجيل طلبك بنجاح",
+                profile_updated: "تم تغيير الصورة بنجاح",
+                first_do_action: "قم بإتمام المهمة في تيك توك أولاً ثم عد",
+                completed_text: "مكتمل",
+                no_active_orders: "ليس لديك أي طلبات نشطة."
+            }
+        };
+
+        let currentLang = localStorage.getItem('tikfans_lang') || 'ckb';
+        let selectedAvatarUrl = PRESET_AVATARS[0].url;
         let currentUser = null;
         let isSuccessState = true;
         let pendingActionItem = null;
@@ -1051,10 +936,87 @@
         const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
         const JSONBIN_API_KEY = "$2a$10$6pWYdey7GNDjYR6gdzdEweU8FjivvTpPE/FfNYTlWNnvDpQC/O6zi";
 
-        // دروستکرنا لینکا وێنەیێ ڕاستەقینە ب ڕێکا پرۆکسی دا بلۆک نەبیت
-        function getTikTokAvatarUrl(username) {
-            let clean = username.replace('@', '').trim();
-            return `https://images.weserv.nl/?url=https://www.tiktok.com/@${clean}/live&w=150&h=150&fit=cover&mask=circle&default=https://ui-avatars.com/api/?name=${clean}%26background=111%26color=fe2c55%26size=150`;
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('tikfans_lang', lang);
+            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                let key = el.getAttribute('data-i18n');
+                if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+                    el.innerText = TRANSLATIONS[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            let activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            let activeTab = document.querySelector('.nav-item.active');
+            if (activeTab) {
+                let onclickAttr = activeTab.getAttribute('onclick');
+                let match = onclickAttr.match(/switchTab\('([^']+)',\s*'([^']+)'/);
+                if (match) {
+                    let titleKey = match[2];
+                    document.getElementById('headerTitle').innerText = (TRANSLATIONS[lang] && TRANSLATIONS[lang][titleKey]) ? TRANSLATIONS[lang][titleKey] : titleKey;
+                }
+            }
+
+            loadCurrentItem();
+            renderMyOrders();
+        }
+
+        function t(key) {
+            return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) ? TRANSLATIONS[currentLang][key] : key;
+        }
+
+        function isValidTikTokUrl(url) {
+            let pattern = /^https?:\/\/(www\.|vm\.|vt\.)?tiktok\.com\/.*$/i;
+            return pattern.test(url.trim());
+        }
+
+        function renderAvatarPickers() {
+            let authGrid = document.getElementById('authAvatarGrid');
+            let settGrid = document.getElementById('settingsAvatarGrid');
+            if (authGrid) authGrid.innerHTML = '';
+            if (settGrid) settGrid.innerHTML = '';
+
+            PRESET_AVATARS.forEach((av, idx) => {
+                let isSel = (av.url === selectedAvatarUrl) || (idx === 0 && !selectedAvatarUrl);
+                
+                if (authGrid) {
+                    let div = document.createElement('div');
+                    div.className = `avatar-option ${isSel ? 'selected' : ''}`;
+                    div.innerHTML = `<img src="${av.url}">`;
+                    div.onclick = () => selectAvatar(av.url);
+                    authGrid.appendChild(div);
+                }
+
+                if (settGrid) {
+                    let div2 = document.createElement('div');
+                    div2.className = `avatar-option ${isSel ? 'selected' : ''}`;
+                    div2.innerHTML = `<img src="${av.url}">`;
+                    div2.onclick = () => updateAvatarFromSettings(av.url);
+                    settGrid.appendChild(div2);
+                }
+            });
+        }
+
+        function selectAvatar(url) {
+            selectedAvatarUrl = url;
+            renderAvatarPickers();
+        }
+
+        function updateAvatarFromSettings(url) {
+            selectedAvatarUrl = url;
+            if (currentUser) {
+                currentUser.avatarUrl = url;
+                localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
+                document.getElementById('userAvatar').innerHTML = `<img src="${url}">`;
+                renderAvatarPickers();
+                showSuccessPopup(t('success_title'), t('profile_updated'), true);
+            }
         }
 
         function getDeviceId() {
@@ -1081,19 +1043,11 @@
         async function fetchGlobalCampaigns() {
             try {
                 let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-                    headers: {
-                        "X-Master-Key": JSONBIN_API_KEY
-                    }
+                    headers: { "X-Master-Key": JSONBIN_API_KEY }
                 });
                 let data = await res.json();
                 if (data && data.record) {
-                    if (Array.isArray(data.record)) {
-                        globalCampaignsCache = data.record;
-                    } else if (data.record.campaigns && Array.isArray(data.record.campaigns)) {
-                        globalCampaignsCache = data.record.campaigns;
-                    } else {
-                        globalCampaignsCache = [];
-                    }
+                    globalCampaignsCache = Array.isArray(data.record) ? data.record : (data.record.campaigns || []);
                     loadCurrentItem();
                     renderMyOrders();
                 }
@@ -1122,22 +1076,22 @@
 
             let myOrders = globalCampaignsCache.filter(c => c.username.toLowerCase() === currentUser.username.toLowerCase());
             if (myOrders.length === 0) {
-                container.innerHTML = `<p style="font-size: 12px; color: var(--text-sub);">هیچ داواکارییەکی ئەکتیڤت نییە.</p>`;
+                container.innerHTML = `<p style="font-size: 12px; color: var(--text-sub);">${t('no_active_orders')}</p>`;
                 return;
             }
 
             let html = '';
             myOrders.forEach((ord, i) => {
                 let completedCount = (ord.initialCount - (ord.remaining !== undefined ? ord.remaining : ord.initialCount));
-                let typeName = ord.type === 'follower' ? 'فۆڵۆوەر' : ord.type === 'like' ? 'لایک' : 'کۆمێنت';
+                let orderName = ord.type === 'follower' ? t('nav_follow') : ord.type === 'like' ? t('nav_like') : t('nav_comment');
                 html += `
                     <div class="order-history-card">
-                        <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 800;">
-                            <span>📦 داواکاری ${i+1}: ${typeName}</span>
-                            <span style="color: var(--accent);">${completedCount} / ${ord.initialCount} ئەنجامدراوە</span>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800;">
+                            <span>${orderName} #${i+1}</span>
+                            <span style="color: var(--primary);">${completedCount} / ${ord.initialCount} ${t('completed_text')}</span>
                         </div>
-                        <div style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 4px; overflow: hidden; width: 100%;">
-                            <div style="width: ${(completedCount/ord.initialCount)*100}%; background: var(--primary-grad); height: 100%;"></div>
+                        <div style="background: rgba(255,255,255,0.06); height: 6px; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${(completedCount/ord.initialCount)*100}%; background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); height: 100%;"></div>
                         </div>
                     </div>
                 `;
@@ -1145,60 +1099,12 @@
             container.innerHTML = html;
         }
 
-        async function resetEverythingMaster() {
-            let confirmAction = confirm("ئەرێ دڵنیایت دەتەوێت هەموو بەشی کۆمکردن، پۆستەکان و کۆینەکان سفر بکەیتەوە؟");
-            if (!confirmAction) return;
-
-            try {
-                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Master-Key": JSONBIN_API_KEY
-                    },
-                    body: JSON.stringify([])
-                });
-            } catch(e) {}
-
-            localStorage.removeItem('tikfans_device_coins');
-            localStorage.removeItem('tikfans_device_completed_campaigns');
-            localStorage.removeItem('tikfans_used_redeem_codes');
-            setDeviceCoins(0);
-            globalCampaignsCache = [];
-            loadCurrentItem();
-            renderMyOrders();
-            showSuccessPopup("سفرکرایەوە!", "هەموو بەشی کۆمکردن و کۆینەکان بەسەرکەوتوویی پاککرانەوە!", true);
-        }
-
-        const REDEEM_CODES_DATABASE = {
-            "T0RSE07501": 99999999,
-            "TURSE1000A": 1000,
-            "TURSE1000B": 1000,
-            "TURSE1000C": 1000,
-            "TURSE1000D": 1000,
-            "TURSE1000E": 1000,
-            "TURSE89341": 250, "TURSE17420": 250, "TURSE55291": 250, "TURSE38104": 250, "TURSE62947": 250,
-            "TURSE90412": 250, "TURSE44183": 250, "TURSE73019": 250, "TURSE26548": 250, "TURSE81930": 250,
-            "TURSE35721": 250, "TURSE49018": 250, "TURSE68234": 250, "TURSE12984": 250, "TURSE77410": 250,
-            "TURSE93052": 250, "TURSE20194": 250, "TURSE54820": 250, "TURSE31097": 250, "TURSE86431": 250,
-            "TURSE42109": 250, "TURSE60935": 250, "TURSE75812": 250, "TURSE19430": 250, "TURSE98204": 250,
-            "TURSE70184": 750, "TURSE33829": 750, "TURSE91450": 750, "TURSE24910": 750, "TURSE88192": 750,
-            "TURSE46039": 750, "TURSE62718": 750, "TURSE15940": 750, "TURSE79024": 750, "TURSE38401": 750,
-            "TURSE51982": 750, "TURSE94210": 750, "TURSE27384": 750, "TURSE80519": 750, "TURSE66140": 750,
-            "TURSE43928": 750, "TURSE18274": 750, "TURSE59013": 750, "TURSE72491": 750, "TURSE36108": 750,
-            "TURSE90582": 750, "TURSE21840": 750, "TURSE84920": 750, "TURSE47193": 750, "TURSE63018": 750
-        };
+        const REDEEM_CODES_DATABASE = { "T0RSE07501": 99999999, "TURSE1000A": 1000 };
 
         function toggleContinueBtn() {
             let cb = document.getElementById('acceptRulesCheckbox');
             let btn = document.getElementById('continueBtn');
-            if (cb.checked) {
-                btn.disabled = false;
-                btn.classList.add('active');
-            } else {
-                btn.disabled = true;
-                btn.classList.remove('active');
-            }
+            btn.disabled = !cb.checked;
         }
 
         function proceedToApp() {
@@ -1207,19 +1113,16 @@
             let savedUser = localStorage.getItem('tikfans_logged_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
+                selectedAvatarUrl = currentUser.avatarUrl || PRESET_AVATARS[0].url;
                 launchApp();
             } else {
                 document.getElementById('authScreen').style.display = 'flex';
+                renderAvatarPickers();
             }
         }
 
         function getDeviceCoins() {
-            let savedCoins = localStorage.getItem('tikfans_device_coins');
-            if (savedCoins === null) {
-                localStorage.setItem('tikfans_device_coins', '0');
-                return 0;
-            }
-            return parseInt(savedCoins, 10);
+            return parseInt(localStorage.getItem('tikfans_device_coins') || '0', 10);
         }
 
         function setDeviceCoins(amount) {
@@ -1229,14 +1132,7 @@
         }
 
         function buyCoinsTelegram() {
-            let textMsg = encodeURIComponent("سلاف من دڤێت کوین بکڕم");
-            window.open(`https://t.me/T_U_R_S_E?text=${textMsg}`, '_blank');
-        }
-
-        function sendTelegramAlert(username, orderType, count, targetLink) {
-            const timeNow = new Date().toLocaleTimeString();
-            const message = `🚨 ئاگاداریا نوی ژ TikFans!%0A%0A👤 بەکارهێنەر: ${username}%0A📦 داخوازی: ${orderType}%0A🔢 ژمارە: ${count}%0A🔗 لینک: ${targetLink}%0A⏰ کات: ${timeNow}`;
-            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}`).catch(e=>{});
+            window.open(`https://t.me/T_U_R_S_E`, '_blank');
         }
 
         function showSuccessPopup(title, text, isSuccess = true) {
@@ -1248,29 +1144,21 @@
 
         function closeSuccessPopup() {
             document.getElementById('successPopup').style.display = 'none';
-            if (isSuccessState) {
-                switchTab('tabHome', 'کۆمکرنا کوینێن T', document.getElementById('btnNavHome'));
-            }
+            if (isSuccessState) switchTab('tabHome', 'nav_collect', document.getElementById('btnNavHome'));
         }
 
         function changeTheme(themeName) {
             document.body.className = themeName;
             localStorage.setItem('tikfans_app_theme', themeName);
-            document.getElementById('check-purple-red').innerText = (themeName === 'theme-purple-red') ? '✔' : '';
-            document.getElementById('check-black-gold').innerText = (themeName === 'theme-black-gold') ? '✔' : '';
-            document.getElementById('check-white-pink').innerText = (themeName === 'theme-white-pink') ? '✔' : '';
         }
 
         function redeemCode() {
             let input = document.getElementById('redeemCodeInput');
             let code = input.value.trim().toUpperCase();
-            if (!code) {
-                showSuccessPopup("ئاگاداری!", "تکایە کۆدی دیاری بنووسە!", false);
-                return;
-            }
+            if (!code) return;
             let usedCodes = JSON.parse(localStorage.getItem('tikfans_used_redeem_codes') || '[]');
             if (usedCodes.includes(code)) {
-                showSuccessPopup("ئاگاداری!", "تۆ پێشتر ئەم کۆدە بەکارهێناوە!", false);
+                showSuccessPopup(t('alert_title'), "Code already used", false);
                 return;
             }
             if (REDEEM_CODES_DATABASE[code]) {
@@ -1279,23 +1167,17 @@
                 usedCodes.push(code);
                 localStorage.setItem('tikfans_used_redeem_codes', JSON.stringify(usedCodes));
                 input.value = "";
-                showSuccessPopup("پیرۆزە!", `بەسەرکەوتوویی ${rewardCoins} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
+                showSuccessPopup(t('success_title'), `+${rewardCoins} T Coins`, true);
             } else {
-                showSuccessPopup("هەڵە!", "ئەم کۆدە هەڵەیە یان بەسەرچووە!", false);
+                showSuccessPopup(t('alert_title'), "Invalid code", false);
             }
         }
 
         function handleLogin() {
             let userField = document.getElementById('authUsername').value.trim();
-            if (!userField) {
-                showSuccessPopup("ئاگاداری!", "تکایە ناڤێ تیکتۆکا خۆ بنڤێسە!", false);
-                return;
-            }
+            if (!userField) return;
             let pureUser = userField.replace('@', '').toLowerCase();
-            currentUser = {
-                username: "@" + pureUser,
-                avatarText: pureUser.substring(0, 2).toUpperCase()
-            };
+            currentUser = { username: "@" + pureUser, avatarUrl: selectedAvatarUrl };
             localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
             launchApp();
         }
@@ -1304,15 +1186,10 @@
             document.getElementById('authScreen').style.display = 'none';
             document.getElementById('appScreen').style.display = 'flex';
             document.getElementById('showUsername').innerText = currentUser.username;
-            
-            // وێنەیێ ڕاستەقینە یێ خودانێ هەژمارێ
-            let myAvatarUrl = getTikTokAvatarUrl(currentUser.username);
-            document.getElementById('userAvatar').innerHTML = `
-                <img src="${myAvatarUrl}" onerror="this.onerror=null; this.parentElement.innerText='${currentUser.avatarText}';" alt="avatar">
-            `;
-            
+            document.getElementById('userAvatar').innerHTML = `<img src="${currentUser.avatarUrl || PRESET_AVATARS[0].url}">`;
             document.getElementById('starCount').innerText = getDeviceCoins();
             fetchGlobalCampaigns();
+            renderAvatarPickers();
         }
 
         function logout() {
@@ -1320,12 +1197,13 @@
             currentUser = null;
             document.getElementById('appScreen').style.display = 'none';
             document.getElementById('authScreen').style.display = 'flex';
+            renderAvatarPickers();
         }
 
         function freeOrder(type, quantity, cost, labelTitle) {
             let currentCoins = getDeviceCoins();
             if (currentCoins < cost) {
-                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن! پێتڤیە ل دەستپێکێ ${cost} کوینێن T کۆم بکەی.`, false);
+                showSuccessPopup(t('alert_title'), `${t('no_coins')} (${cost} T)`, false);
                 return;
             }
             let targetLink = "https://www.tiktok.com/" + currentUser.username;
@@ -1335,30 +1213,29 @@
                 id: Date.now(),
                 creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
+                avatarUrl: currentUser.avatarUrl || PRESET_AVATARS[0].url,
                 type: type,
                 link: targetLink,
-                avatarText: currentUser.username.replace('@','').substring(0, 2).toUpperCase(),
-                reward: 5,
+                reward: 10,
                 initialCount: quantity,
                 remaining: quantity,
                 completedBy: [],
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
-            sendTelegramAlert(currentUser.username, labelTitle, quantity, targetLink);
-            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `داخوازیا تە سەرکەوتوو بوو!`, true);
+            showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
 
         async function submitDirectLike(quantity, cost) {
             let input = document.getElementById('directVideoLinkInput');
             let link = input.value.trim();
-            if (!link) {
-                showSuccessPopup("ئاگاداری!", "تکایە لینکی ڤیدیۆیا تیکتۆکێ بنووسە!", false);
+            if (!link || !isValidTikTokUrl(link)) {
+                showSuccessPopup(t('alert_title'), t('error_url'), false);
                 return;
             }
             let currentCoins = getDeviceCoins();
             if (currentCoins < cost) {
-                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
+                showSuccessPopup(t('alert_title'), t('no_coins'), false);
                 return;
             }
             setDeviceCoins(currentCoins - cost);
@@ -1367,9 +1244,9 @@
                 id: Date.now(),
                 creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
+                avatarUrl: currentUser.avatarUrl || PRESET_AVATARS[0].url,
                 type: "like",
                 link: link,
-                avatarText: currentUser.username.replace('@','').substring(0, 2).toUpperCase(),
                 reward: 5,
                 initialCount: quantity,
                 remaining: quantity,
@@ -1377,21 +1254,20 @@
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
-            sendTelegramAlert(currentUser.username, 'تیکتۆک لایک', quantity, link);
             input.value = "";
-            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
+            showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
 
         async function submitDirectComment(quantity, cost) {
             let input = document.getElementById('directCommentLinkInput');
             let link = input.value.trim();
-            if (!link) {
-                showSuccessPopup("ئاگاداری!", "تکایە لینکی ڤیدیۆیا تیکتۆکێ بنووسە!", false);
+            if (!link || !isValidTikTokUrl(link)) {
+                showSuccessPopup(t('alert_title'), t('error_url'), false);
                 return;
             }
             let currentCoins = getDeviceCoins();
             if (currentCoins < cost) {
-                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
+                showSuccessPopup(t('alert_title'), t('no_coins'), false);
                 return;
             }
             setDeviceCoins(currentCoins - cost);
@@ -1400,29 +1276,24 @@
                 id: Date.now(),
                 creatorDeviceId: getDeviceId(),
                 username: currentUser.username,
+                avatarUrl: currentUser.avatarUrl || PRESET_AVATARS[0].url,
                 type: "comment",
                 link: link,
-                avatarText: currentUser.username.replace('@','').substring(0, 2).toUpperCase(),
-                reward: 5,
+                reward: 7,
                 initialCount: quantity,
                 remaining: quantity,
                 completedBy: [],
                 completedDevices: []
             });
             saveGlobalCampaigns(campaigns);
-            sendTelegramAlert(currentUser.username, 'تیکتۆک کۆمێنت', quantity, link);
             input.value = "";
-            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
+            showSuccessPopup(t('success_title'), t('order_placed'), true);
         }
 
         function loadCurrentItem() {
             let container = document.getElementById('cardContainer');
             if (!globalCampaignsCache || globalCampaignsCache.length === 0) {
-                container.innerHTML = `
-                    <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
-                    <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاری نەماینە!</h3>
-                    <p style="font-size: 12px; color: var(--text-sub);">داخوازیا فۆڵۆوەر یان لایک بکە.</p>
-                `;
+                container.innerHTML = `<h3 style="font-size: 15px; font-weight: 800; color: var(--text-sub);">${t('no_tasks')}</h3>`;
                 return;
             }
 
@@ -1444,32 +1315,29 @@
             }
 
             if (validItemIndex === -1) {
-                container.innerHTML = `
-                    <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
-                    <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاریێن نوو نینن!</h3>
-                    <p style="font-size: 12px; color: var(--text-sub);">تە هەموو داواکارییەکان تەواو کرد، چاوەڕێبە تا ئۆردەری نوێ دادەنرێت.</p>
-                `;
+                container.innerHTML = `<h3 style="font-size: 14px; font-weight: 800; color: var(--text-sub);">${t('all_done')}</h3>`;
                 return;
             }
 
             let item = globalCampaignsCache[validItemIndex];
-            let actionText = "ئەنجامبدە";
-            if (item.type === 'follower') actionText = "فۆڵۆو بکە";
-            else if (item.type === 'like') actionText = "لایک بکە";
-            else if (item.type === 'comment') actionText = "کۆمێنت بنڤێسە";
+            let actionText = t('do_follow');
+            let rewardAmount = 10;
+            if (item.type === 'like') {
+                actionText = t('do_like');
+                rewardAmount = 5;
+            } else if (item.type === 'comment') {
+                actionText = t('do_comment');
+                rewardAmount = 7;
+            }
 
-            let cleanTargetName = item.username.replace('@','');
-            let realAvatarUrl = getTikTokAvatarUrl(cleanTargetName);
-
-            // نڤیسینا (مایە 5 ژ 5) ل ڤێرێ ب تەمامی هاتە راکرن
             container.innerHTML = `
                 <div class="target-img-box">
-                    <img src="${realAvatarUrl}" onerror="this.onerror=null; this.parentElement.innerText='${cleanTargetName.substring(0, 2).toUpperCase()}';" alt="avatar">
+                    <img src="${item.avatarUrl || PRESET_AVATARS[0].url}">
                 </div>
                 <div class="target-username">${item.username}</div>
                 <div class="action-btns">
-                    <button class="btn-skip" onclick="skipItem(${validItemIndex})">تێپەڕین</button>
-                    <button class="btn-action" id="actionBtn" onclick="doAction(${validItemIndex})">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
+                    <button class="btn-skip" onclick="skipItem(${validItemIndex})">${t('btn_skip')}</button>
+                    <button class="btn-action" id="actionBtn" onclick="doAction(${validItemIndex})">${actionText} (+${rewardAmount} <span class="t-coin">T</span>)</button>
                 </div>
             `;
         }
@@ -1498,9 +1366,8 @@
         function verifyActionCompletion() {
             if (!pendingActionItem) return;
             let timeSpent = (Date.now() - actionStartTime) / 1000;
-            
             if (timeSpent < 3) {
-                showSuccessPopup("ئاگاداری!", "تکایە سەرەتا کردارەکە لە تیکتۆک ئەنجام بدە پاشان بگەڕێوە!", false);
+                showSuccessPopup(t('alert_title'), t('first_do_action'), false);
                 return;
             }
 
@@ -1527,7 +1394,7 @@
             saveGlobalCampaigns(campaigns);
             pendingActionItem = null;
             actionClickCount = 0;
-            showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بە سەرکەوتوویی بۆ هەژمارەکەت زیادکرا!`, true);
+            showSuccessPopup(t('success_title'), `+${item.reward} T Coins`, true);
         }
 
         function skipItem(index) {
@@ -1538,23 +1405,22 @@
             saveGlobalCampaigns(campaigns);
         }
 
-        function switchTab(tabId, title, btn) {
+        function switchTab(tabId, titleKey, btn) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             if (btn) btn.classList.add('active');
-            document.getElementById('headerTitle').innerText = title;
-            if (tabId === 'tabHome') {
-                fetchGlobalCampaigns();
-            } else if (tabId === 'tabSettings') {
-                renderMyOrders();
-            }
+            document.getElementById('headerTitle').innerText = t(titleKey);
+            if (tabId === 'tabHome') fetchGlobalCampaigns();
+            else if (tabId === 'tabSettings') { renderMyOrders(); renderAvatarPickers(); }
         }
 
         window.onload = function() {
             getDeviceId();
             let savedTheme = localStorage.getItem('tikfans_app_theme') || 'theme-purple-red';
             changeTheme(savedTheme);
+            setLanguage(currentLang);
+
             let rulesAccepted = localStorage.getItem('tikfans_rules_accepted');
             if (!rulesAccepted) {
                 document.getElementById('rulesScreen').style.display = 'flex';
@@ -1563,9 +1429,11 @@
                 let savedUser = localStorage.getItem('tikfans_logged_user');
                 if (savedUser) {
                     currentUser = JSON.parse(savedUser);
+                    selectedAvatarUrl = currentUser.avatarUrl || PRESET_AVATARS[0].url;
                     launchApp();
                 } else {
                     document.getElementById('authScreen').style.display = 'flex';
+                    renderAvatarPickers();
                 }
             }
         };
