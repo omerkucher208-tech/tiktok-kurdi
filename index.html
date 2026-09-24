@@ -214,12 +214,15 @@
             margin-bottom: 16px;
         }
 
-        .logo img {
+        .logo div {
             width: 55px;
             height: 55px;
             border-radius: 14px;
-            object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: #2c0b47;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
             border: 2px solid var(--border-color);
         }
 
@@ -315,8 +318,11 @@
             border: 3px solid #fbc02d;
             margin: 0 auto 8px;
             object-fit: cover;
-            background: #e2e8f0;
-            display: block;
+            background: #210d36;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
         }
 
         .display-username {
@@ -346,7 +352,11 @@
             border-radius: 18px;
             object-fit: cover;
             margin: 8px auto 12px;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2c0b47;
+            font-size: 50px;
         }
 
         .target-username {
@@ -628,8 +638,8 @@
     <!-- ٢. پەڕەی لۆگین -->
     <div id="authScreen">
         <div class="logo">
-            <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok">
-            <img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram">
+            <div>🎵</div>
+            <div>📱</div>
         </div>
         <h2 style="font-size: 20px; margin-bottom: 4px; color:#fff;">تۆمارکرن و چوونەژوورێ</h2>
         <p style="color: var(--text-sub); font-size: 12.5px; margin-bottom: 18px;">ناڤێ تیکتۆکا خۆ بنڤێسە بێی پاسۆرد</p>
@@ -658,8 +668,8 @@
         <!-- بەشی فۆڵۆوەر -->
         <div class="tab-content" id="tabFollowers">
             <div class="profile-banner">
-                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 45px; height: 45px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
-                <img id="userAvatar" src="" class="avatar" alt="Avatar">
+                <div style="font-size: 24px; margin-bottom: 4px;">🎵</div>
+                <div id="userAvatar" class="avatar">👤</div>
                 <div id="showUsername" class="display-username">@username</div>
                 <p style="font-size: 12.5px; opacity: 0.9;">فۆڵۆوەری ڕاستەقینە بۆ هەژمارا خۆ زێدە بکە</p>
             </div>
@@ -730,7 +740,7 @@
         <!-- بەشی لایکەکان -->
         <div class="tab-content" id="tabLikes">
             <div class="profile-banner" style="background: linear-gradient(135deg, #fe2c55 0%, #d62047 100%); display: flex; flex-direction: column; align-items: center;">
-                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <div style="font-size: 24px; margin-bottom: 4px;">❤️</div>
                 <h3 style="margin-bottom: 4px;">زێدەکرنا لایکان ❤️</h3>
                 <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
             </div>
@@ -805,7 +815,7 @@
         <!-- 💬 بەشی کۆمێنتەکان -->
         <div class="tab-content" id="tabComments">
             <div class="profile-banner" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); display: flex; flex-direction: column; align-items: center;">
-                <img src="46506ebf45d46c6f379f83eeb4293785.jpg" alt="TikTok" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <div style="font-size: 24px; margin-bottom: 4px;">💬</div>
                 <h3 style="margin-bottom: 4px;">زێدەکرنا کۆمێنتان 💬</h3>
                 <p style="font-size: 12.5px; opacity: 0.95;">لینکی ڤیدیۆیا خۆ دابنێ و پاکێجەکێ هەلبژێرە</p>
             </div>
@@ -880,7 +890,7 @@
         <!-- 📱 بەشی تێلێگرام (مێمبەر / ئەندام) -->
         <div class="tab-content" id="tabTelegram">
             <div class="profile-banner" style="background: linear-gradient(135deg, #0088cc 0%, #006699 100%); display: flex; flex-direction: column; align-items: center;">
-                <img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; margin-bottom: 6px; border: 2px solid #fff;">
+                <div style="font-size: 24px; margin-bottom: 4px;">📱</div>
                 <h3 style="margin-bottom: 4px;">مێمبەرێن تێلێگرامێ 📱</h3>
                 <p style="font-size: 12.5px; opacity: 0.95;">لینکی کەناڵ یان گرووپی خۆ دابنێ و مێمبەران زێدە بکە</p>
             </div>
@@ -1034,7 +1044,7 @@
                     <span>کۆمێنت</span>
                 </button>
                 <button class="nav-item" id="btnNavTelegram" onclick="switchTab('tabTelegram', 'مێمبەرێن تێلێگرامێ', this)">
-                    <span class="icon"><img src="0f3a350d2b06131126033e75d2e7d481.jpg" alt="Telegram"></span>
+                    <span class="icon">📱</span>
                     <span>تێلێگرام</span>
                 </button>
                 <button class="nav-item" id="btnNavShop" onclick="switchTab('tabShop', 'کڕینا کوینان', this)">
@@ -1101,8 +1111,6 @@
             } catch(e) {}
             loadCurrentItem();
         }
-
-        // تێبینی: لێرە خۆڕێفرێشکرنا خودکار (setInterval) هاتە لارەبرن داكو شاشە بێ خواست نەڤێرت ببت!
 
         const REDEEM_CODES_DATABASE = {
             "T0RSE07501": 99999999,
@@ -1228,7 +1236,7 @@
             let pureUser = userField.replace('@', '').toLowerCase();
             currentUser = {
                 username: "@" + pureUser,
-                avatar: "https://unavatar.io/tiktok/" + pureUser
+                avatarText: pureUser.charAt(0).toUpperCase()
             };
             localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
             launchApp();
@@ -1238,7 +1246,7 @@
             document.getElementById('authScreen').style.display = 'none';
             document.getElementById('appScreen').style.display = 'flex';
             document.getElementById('showUsername').innerText = currentUser.username;
-            document.getElementById('userAvatar').src = currentUser.avatar;
+            document.getElementById('userAvatar').innerText = currentUser.avatarText;
             document.getElementById('starCount').innerText = getDeviceCoins();
             fetchGlobalCampaigns();
         }
@@ -1264,14 +1272,14 @@
                 username: currentUser.username,
                 type: type,
                 link: targetLink,
-                img: currentUser.avatar,
+                avatarText: currentUser.avatarText,
                 reward: 5,
                 remaining: quantity,
                 completedBy: []
             });
             saveGlobalCampaigns(campaigns);
             sendTelegramAlert(currentUser.username, labelTitle, quantity, targetLink);
-            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `داخوازیا تە سەرکەوتوو بوو و ل دەف هەمی جیهانێ دیار بوو!`, true);
+            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `داخوازیا تە سەرکەوتوو بوو!`, true);
         }
 
         async function submitDirectLike(quantity, cost) {
@@ -1287,19 +1295,13 @@
                 return;
             }
             setDeviceCoins(currentCoins - cost);
-            let coverImg = currentUser.avatar;
-            try {
-                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
-                let data = await res.json();
-                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
-            } catch(e) {}
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
                 username: currentUser.username,
                 type: "like",
                 link: link,
-                img: coverImg,
+                avatarText: currentUser.avatarText,
                 reward: 5,
                 remaining: quantity,
                 completedBy: []
@@ -1323,19 +1325,13 @@
                 return;
             }
             setDeviceCoins(currentCoins - cost);
-            let coverImg = currentUser.avatar;
-            try {
-                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
-                let data = await res.json();
-                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
-            } catch(e) {}
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
                 username: currentUser.username,
                 type: "comment",
                 link: link,
-                img: coverImg,
+                avatarText: currentUser.avatarText,
                 reward: 5,
                 remaining: quantity,
                 completedBy: []
@@ -1391,7 +1387,7 @@
                 container.innerHTML = `
                     <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
                     <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاریێن نوو نینن!</h3>
-                    <p style="font-size: 12px; color: var(--text-sub);">تە هەمی داواکاری تەواو کرن.</p>
+                    <p style="font-size: 12px; color: var(--text-sub);">تە هەمی داواکاری تەواو کرن (Test completed).</p>
                 `;
                 return;
             }
@@ -1403,7 +1399,7 @@
             else if (item.type === 'comment') actionText = "کۆمێنت بنڤێسە";
 
             container.innerHTML = `
-                <img src="${item.img}" class="target-img" alt="Target">
+                <div class="target-img">${item.avatarText || '👤'}</div>
                 <div class="target-username">${item.username}</div>
                 <div class="action-btns">
                     <button class="btn-skip" onclick="skipItem(${validItemIndex})">تێپەڕین</button>
@@ -1424,10 +1420,10 @@
             setTimeout(() => {
                 if (btn) {
                     btn.disabled = false;
-                    btn.innerHTML = `پشکنین و وەرگرتن ✔`;
+                    btn.innerHTML = `پشکنین و وەرگرتن (Test) ✔`;
                     btn.onclick = verifyActionCompletion;
                 }
-            }, 3000); // ٣ سانیە چاوەڕێ دکەت دا کەسە فۆڵۆو بکەت
+            }, 3000);
         }
 
         function verifyActionCompletion() {
@@ -1447,13 +1443,13 @@
             
             item.remaining--;
             if (item.remaining <= 0) {
-                campaigns.splice(index, 1); // ئەگەر ژمارە تمام بوو، ژ سێرڤەری دچێتە دەرڤە (test دچێت)
+                campaigns.splice(index, 1);
             } else {
                 campaigns[index] = item;
             }
             saveGlobalCampaigns(campaigns);
             pendingActionItem = null;
-            showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
+            showSuccessPopup("پیرۆزە (Test Passed)!", `+${item.reward} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
         }
 
         function skipItem(index) {
@@ -1471,7 +1467,7 @@
             if (btn) btn.classList.add('active');
             document.getElementById('headerTitle').innerText = title;
             if (tabId === 'tabHome') {
-                fetchGlobalCampaigns(); // تەنها دەمێ دەچیتە بەشی کۆمکرنێ داتای نوێ دئانێت
+                fetchGlobalCampaigns();
             }
         }
 
