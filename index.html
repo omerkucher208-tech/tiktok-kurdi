@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikFans & TeleFans</title>
+    <title>TikFans</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -319,6 +319,12 @@
             margin: 0 auto 8px;
             object-fit: cover;
             background: #210d36;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 900;
+            color: #ffd700;
         }
 
         .display-username {
@@ -343,21 +349,38 @@
         }
 
         .target-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 18px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
             object-fit: cover;
             margin: 8px auto 12px;
-            background: #2c0b47;
-            display: block;
-            border: 2px solid var(--border-color);
+            background: linear-gradient(135deg, #7209b7 0%, #f72585 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: 900;
+            color: #ffffff;
+            border: 3px solid var(--border-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
         .target-username {
             direction: ltr;
             font-size: 17px;
             font-weight: 900;
-            margin-bottom: 14px;
+            margin-bottom: 6px;
+        }
+
+        .campaign-counter {
+            font-size: 12px;
+            color: var(--badge-text);
+            background: var(--badge-bg);
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            border: 1px solid var(--badge-border);
         }
 
         .action-btns { display: flex; gap: 10px; justify-content: center; width: 100%; }
@@ -568,7 +591,7 @@
             align-items: center;
             justify-content: center;
             color: var(--text-sub);
-            font-size: 8.5px;
+            font-size: 9px;
             font-weight: 800;
             background: transparent;
             border: none;
@@ -581,20 +604,12 @@
         }
 
         .nav-item span.icon { 
-            font-size: 15px; 
+            font-size: 16px; 
             line-height: 1; 
             display: flex;
             align-items: center;
             justify-content: center;
             height: 20px;
-        }
-        
-        .nav-item span.icon img {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--border-color);
         }
 
         .nav-item.active { color: var(--primary); }
@@ -615,10 +630,10 @@
     <div id="rulesScreen">
         <div class="rules-card">
             <h2 class="rules-title">RULES</h2>
-            <p class="rules-welcome">ئــەڤ بــەرنــامــە هــاتــیە دروست کرن بۆ ئــەکــتیـڤ کرنا تــیک تــوک و تێلێگرامێ تە.</p>
+            <p class="rules-welcome">ئــەڤ بــەرنــامــە هــاتــیە دروست کرن بۆ ئــەکــتیـڤ کرنا تــیک تــوکی تە.</p>
             <div class="rules-warning-title">⚠️ تـــێــبینی:</div>
             <ul class="rules-list">
-                <li><b>1 -</b> تــو کەسەکێ فولو یان مێمبەر بکی پاشان T بوتە بهێن تو ئێک سەر لاببەی دێ هێە باند کرن.</li>
+                <li><b>1 -</b> تــو کەسەکێ فولو بکی پاشان T بوتە بهێن تو ئێک سەر لاببەی دێ هێە باند کرن.</li>
                 <li><b>2 -</b> تو کەسەکێ لایک بکەی T وەڕبگری پاشان لایکێ لا ببە دێ ئێک سەر هێە باند کرن.</li>
             </ul>
             <label class="checkbox-container">
@@ -633,7 +648,6 @@
     <div id="authScreen">
         <div class="logo">
             <div>🎵</div>
-            <div>📱</div>
         </div>
         <h2 style="font-size: 20px; margin-bottom: 4px; color:#fff;">تۆمارکرن و چوونەژوورێ</h2>
         <p style="color: var(--text-sub); font-size: 12.5px; margin-bottom: 18px;">ناڤێ تیکتۆکا خۆ بنڤێسە بێی پاسۆرد</p>
@@ -663,7 +677,7 @@
         <div class="tab-content" id="tabFollowers">
             <div class="profile-banner">
                 <div style="font-size: 24px; margin-bottom: 4px;">🎵</div>
-                <img id="userAvatar" src="" class="avatar" alt="Avatar">
+                <div id="userAvatar" class="avatar">👤</div>
                 <div id="showUsername" class="display-username">@username</div>
                 <p style="font-size: 12.5px; opacity: 0.9;">فۆڵۆوەری ڕاستەقینە بۆ هەژمارا خۆ زێدە بکە</p>
             </div>
@@ -806,7 +820,7 @@
             </div>
         </div>
 
-        <!-- 💬 بەشی کۆمێنتەکان -->
+        <!-- بەشی کۆمێنتەکان -->
         <div class="tab-content" id="tabComments">
             <div class="profile-banner" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); display: flex; flex-direction: column; align-items: center;">
                 <div style="font-size: 24px; margin-bottom: 4px;">💬</div>
@@ -877,81 +891,6 @@
                         </div>
                     </div>
                     <button class="btn-price" style="background: #0ea5e9;" onclick="submitDirectComment(1000, 10000)">10000 <span class="t-coin">T</span></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 📱 بەشی تێلێگرام (مێمبەر / ئەندام) -->
-        <div class="tab-content" id="tabTelegram">
-            <div class="profile-banner" style="background: linear-gradient(135deg, #0088cc 0%, #006699 100%); display: flex; flex-direction: column; align-items: center;">
-                <div style="font-size: 24px; margin-bottom: 4px;">📱</div>
-                <h3 style="margin-bottom: 4px;">مێمبەرێن تێلێگرامێ 📱</h3>
-                <p style="font-size: 12.5px; opacity: 0.95;">لینکی کەناڵ یان گرووپی خۆ دابنێ و مێمبەران زێدە بکە</p>
-            </div>
-            <div class="direct-link-card">
-                <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">🔗 لینکی کەناڵ یان گرووپی تێلێگرام:</label>
-                <input type="text" id="directTelegramLinkInput" placeholder="https://t.me/... یا @channel">
-            </div>
-            <div class="list-group">
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+5 مێمبەر</div>
-                            <div class="pack-desc">٥ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(5, 50)">50 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+10 مێمبەر</div>
-                            <div class="pack-desc">١٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(10, 100)">100 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+15 مێمبەر</div>
-                            <div class="pack-desc">١٥ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(15, 150)">150 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+20 مێمبەر</div>
-                            <div class="pack-desc">٢٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(20, 200)">200 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+100 مێمبەر</div>
-                            <div class="pack-desc">١٠٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(100, 1000)">1000 <span class="t-coin">T</span></button>
-                </div>
-                <div class="list-item">
-                    <div class="item-info-pack">
-                        <div class="pack-icon" style="background: rgba(0, 136, 204, 0.1); color: #0088cc;">👥</div>
-                        <div>
-                            <div class="pack-title">+1000 مێمبەر</div>
-                            <div class="pack-desc">١٠٠٠ ئەندامێن ڕاستەقینە بۆ کەناڵێ</div>
-                        </div>
-                    </div>
-                    <button class="btn-price" style="background: #0088cc;" onclick="submitTelegramMember(1000, 10000)">10000 <span class="t-coin">T</span></button>
                 </div>
             </div>
         </div>
@@ -1036,10 +975,6 @@
                 <button class="nav-item" id="btnNavComment" onclick="switchTab('tabComments', 'زێدەکرنا کۆمێنتان', this)">
                     <span class="icon">💬</span>
                     <span>کۆمێنت</span>
-                </button>
-                <button class="nav-item" id="btnNavTelegram" onclick="switchTab('tabTelegram', 'مێمبەرێن تێلێگرامێ', this)">
-                    <span class="icon">📱</span>
-                    <span>تێلێگرام</span>
                 </button>
                 <button class="nav-item" id="btnNavShop" onclick="switchTab('tabShop', 'کڕینا کوینان', this)">
                     <span class="icon">💳</span>
@@ -1230,7 +1165,7 @@
             let pureUser = userField.replace('@', '').toLowerCase();
             currentUser = {
                 username: "@" + pureUser,
-                avatar: "https://unavatar.io/tiktok/" + pureUser
+                avatarText: pureUser.charAt(0).toUpperCase()
             };
             localStorage.setItem('tikfans_logged_user', JSON.stringify(currentUser));
             launchApp();
@@ -1240,7 +1175,7 @@
             document.getElementById('authScreen').style.display = 'none';
             document.getElementById('appScreen').style.display = 'flex';
             document.getElementById('showUsername').innerText = currentUser.username;
-            document.getElementById('userAvatar').src = currentUser.avatar;
+            document.getElementById('userAvatar').innerText = currentUser.avatarText;
             document.getElementById('starCount').innerText = getDeviceCoins();
             fetchGlobalCampaigns();
         }
@@ -1266,8 +1201,9 @@
                 username: currentUser.username,
                 type: type,
                 link: targetLink,
-                img: currentUser.avatar,
+                avatarText: currentUser.username.replace('@','').charAt(0).toUpperCase(),
                 reward: 5,
+                initialCount: quantity,
                 remaining: quantity,
                 completedBy: []
             });
@@ -1289,20 +1225,15 @@
                 return;
             }
             setDeviceCoins(currentCoins - cost);
-            let coverImg = currentUser.avatar;
-            try {
-                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
-                let data = await res.json();
-                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
-            } catch(e) {}
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
                 username: currentUser.username,
                 type: "like",
                 link: link,
-                img: coverImg,
+                avatarText: currentUser.username.replace('@','').charAt(0).toUpperCase(),
                 reward: 5,
+                initialCount: quantity,
                 remaining: quantity,
                 completedBy: []
             });
@@ -1325,43 +1256,20 @@
                 return;
             }
             setDeviceCoins(currentCoins - cost);
-            let coverImg = currentUser.avatar;
-            try {
-                let res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(link)}`);
-                let data = await res.json();
-                if (data && data.thumbnail_url) coverImg = data.thumbnail_url;
-            } catch(e) {}
             let campaigns = [...globalCampaignsCache];
             campaigns.unshift({
                 id: Date.now(),
                 username: currentUser.username,
                 type: "comment",
                 link: link,
-                img: coverImg,
+                avatarText: currentUser.username.replace('@','').charAt(0).toUpperCase(),
                 reward: 5,
+                initialCount: quantity,
                 remaining: quantity,
                 completedBy: []
             });
             saveGlobalCampaigns(campaigns);
             sendTelegramAlert(currentUser.username, 'تیکتۆک کۆمێنت', quantity, link);
-            input.value = "";
-            showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
-        }
-
-        function submitTelegramMember(quantity, cost) {
-            let input = document.getElementById('directTelegramLinkInput');
-            let link = input.value.trim();
-            if (!link) {
-                showSuccessPopup("ئاگاداری!", "تکایە لینکی تێلێگرام بنووسە!", false);
-                return;
-            }
-            let currentCoins = getDeviceCoins();
-            if (currentCoins < cost) {
-                showSuccessPopup("ئاگاداری!", `کوینێن تە بەس نینن!`, false);
-                return;
-            }
-            setDeviceCoins(currentCoins - cost);
-            sendTelegramAlert(currentUser.username, 'تێلێگرام مێمبەر', quantity, link);
             input.value = "";
             showSuccessPopup("داخوازی هاتە تۆمارکرن!", `سەرکەوتوو بوو!`, true);
         }
@@ -1390,7 +1298,7 @@
             }
 
             if (validItemIndex === -1 && globalCampaignsCache.length > 0) {
-                validItemIndex = 0; // بۆ ئەوەی ئەگەر تەنها کەمپینی خۆیشی بمێنێت بۆ تێست نیشان بدات
+                validItemIndex = 0;
             }
 
             if (validItemIndex === -1) {
@@ -1408,11 +1316,14 @@
             else if (item.type === 'like') actionText = "لایک بکە";
             else if (item.type === 'comment') actionText = "کۆمێنت بنڤێسە";
 
-            let targetAvatar = item.img || "https://unavatar.io/tiktok/" + item.username.replace('@','');
+            let initialTotal = item.initialCount || 5;
+            let currentRemaining = item.remaining !== undefined ? item.remaining : initialTotal;
+            let targetLetter = item.avatarText || item.username.replace('@','').charAt(0).toUpperCase() || '👤';
 
             container.innerHTML = `
-                <img src="${targetAvatar}" class="target-img" alt="Target" onerror="this.src='https://unavatar.io/tiktok/user'">
+                <div class="target-img">${targetLetter}</div>
                 <div class="target-username">${item.username}</div>
+                <div class="campaign-counter">مایە: ${currentRemaining} ژ ${initialTotal}</div>
                 <div class="action-btns">
                     <button class="btn-skip" onclick="skipItem(${validItemIndex})">تێپەڕین</button>
                     <button class="btn-action" id="actionBtn" onclick="doAction(${validItemIndex})">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
@@ -1420,38 +1331,33 @@
             `;
         }
 
-        // دوو قۆناغی (دوو جار کلیک) بۆ وەرگرتنا کوینان
+        // کلیکا ئێکێ دەچیتە سەر تیکتۆک، کلیکا دووێ دەستبەجێ کۆینان ل سەر زێدە دکەت بێی گۆڕینا نڤێسینێ
         function doAction(index) {
             if (!globalCampaignsCache[index]) return;
             let item = globalCampaignsCache[index];
-            let btn = document.getElementById('actionBtn');
-            btn.innerHTML = `چاوەڕوانبە (کلیکا یەکەم)...`;
-            btn.disabled = true;
-            pendingActionItem = { item, index };
-            actionStartTime = Date.now();
-            window.open(item.link, '_blank');
-            
-            // قۆناغی یەکەم (دوای ٣ سانیان کلیکا دووەم فعال دەبێت)
-            setTimeout(() => {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = `وەرگرتنا کوینان (کلیکا دووەم) ✔`;
-                    btn.onclick = verifyActionCompletion;
-                }
-            }, 3000);
+
+            if (!pendingActionItem || pendingActionItem.index !== index) {
+                pendingActionItem = { item, index };
+                actionStartTime = Date.now();
+                window.open(item.link, '_blank');
+                return;
+            }
+
+            verifyActionCompletion();
         }
 
         function verifyActionCompletion() {
             if (!pendingActionItem) return;
             let timeSpent = (Date.now() - actionStartTime) / 1000;
+            
             if (timeSpent < 3) {
                 showSuccessPopup("ئاگاداری!", "تکایە سەرەتا کردارەکە لە تیکتۆک ئەنجام بدە پاشان بگەڕێوە!", false);
                 return;
             }
+
             let campaigns = [...globalCampaignsCache];
             let { item, index } = pendingActionItem;
             
-            // زیادکرنا کوینان بۆ هەژماری
             setDeviceCoins(getDeviceCoins() + item.reward);
             
             if (!item.completedBy) item.completedBy = [];
@@ -1463,6 +1369,7 @@
             } else {
                 campaigns[index] = item;
             }
+
             saveGlobalCampaigns(campaigns);
             pendingActionItem = null;
             showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بە سەرکەوتوویی بۆ هەژمارەکەت زیادکرا!`, true);
