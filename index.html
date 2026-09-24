@@ -1102,9 +1102,7 @@
             loadCurrentItem();
         }
 
-        setInterval(() => {
-            fetchGlobalCampaigns();
-        }, 1000);
+        // تێبینی: لێرە خۆڕێفرێشکرنا خودکار (setInterval) هاتە لارەبرن داكو شاشە بێ خواست نەڤێرت ببت!
 
         const REDEEM_CODES_DATABASE = {
             "T0RSE07501": 99999999,
@@ -1152,8 +1150,8 @@
         function getDeviceCoins() {
             let savedCoins = localStorage.getItem('tikfans_device_coins');
             if (savedCoins === null) {
-                localStorage.setItem('tikfans_device_coins', '150');
-                return 150;
+                localStorage.setItem('tikfans_device_coins', '0');
+                return 0;
             }
             return parseInt(savedCoins, 10);
         }
@@ -1376,7 +1374,29 @@
                 `;
                 return;
             }
-            let item = globalCampaignsCache[0];
+
+            let validItemIndex = -1;
+            let myNameLower = currentUser ? currentUser.username.toLowerCase() : "";
+
+            for (let i = 0; i < globalCampaignsCache.length; i++) {
+                let camp = globalCampaignsCache[i];
+                let completedList = camp.completedBy || [];
+                if (camp.username.toLowerCase() !== myNameLower && !completedList.includes(myNameLower)) {
+                    validItemIndex = i;
+                    break;
+                }
+            }
+
+            if (validItemIndex === -1) {
+                container.innerHTML = `
+                    <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.6;">📭</div>
+                    <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">چ داواکاریێن نوو نینن!</h3>
+                    <p style="font-size: 12px; color: var(--text-sub);">تە هەمی داواکاری تەواو کرن.</p>
+                `;
+                return;
+            }
+
+            let item = globalCampaignsCache[validItemIndex];
             let actionText = "ئەنجامبدە";
             if (item.type === 'follower') actionText = "فۆڵۆو بکە";
             else if (item.type === 'like') actionText = "لایک بکە";
@@ -1386,8 +1406,8 @@
                 <img src="${item.img}" class="target-img" alt="Target">
                 <div class="target-username">${item.username}</div>
                 <div class="action-btns">
-                    <button class="btn-skip" onclick="skipItem()">تێپەڕین</button>
-                    <button class="btn-action" id="actionBtn" onclick="doAction(0)">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
+                    <button class="btn-skip" onclick="skipItem(${validItemIndex})">تێپەڕین</button>
+                    <button class="btn-action" id="actionBtn" onclick="doAction(${validItemIndex})">${actionText} (+${item.reward} <span class="t-coin">T</span>)</button>
                 </div>
             `;
         }
@@ -1407,24 +1427,27 @@
                     btn.innerHTML = `پشکنین و وەرگرتن ✔`;
                     btn.onclick = verifyActionCompletion;
                 }
-            }, 1000);
+            }, 3000); // ٣ سانیە چاوەڕێ دکەت دا کەسە فۆڵۆو بکەت
         }
 
         function verifyActionCompletion() {
             if (!pendingActionItem) return;
             let timeSpent = (Date.now() - actionStartTime) / 1000;
-            if (timeSpent < 4) {
-                showSuccessPopup("ئاگاداری!", "تکایە سەرەتا کردارەکە لە تیکتۆک ئەنجام بدە پاشان بگەڕێوە!", false);
+            if (timeSpent < 3) {
+                showSuccessPopup("ئاگاداری!", "تکایە سەرەتا کردارەکە ئەنجام بدە پاشان بگەڕێوە!", false);
                 return;
             }
             let campaigns = [...globalCampaignsCache];
             let { item, index } = pendingActionItem;
+            
             setDeviceCoins(getDeviceCoins() + item.reward);
+            
             if (!item.completedBy) item.completedBy = [];
             item.completedBy.push(currentUser.username.toLowerCase());
+            
             item.remaining--;
             if (item.remaining <= 0) {
-                campaigns.splice(index, 1);
+                campaigns.splice(index, 1); // ئەگەر ژمارە تمام بوو، ژ سێرڤەری دچێتە دەرڤە (test دچێت)
             } else {
                 campaigns[index] = item;
             }
@@ -1433,10 +1456,10 @@
             showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بۆ هەژمارەکەت زیادکرا!`, true);
         }
 
-        function skipItem() {
+        function skipItem(index) {
             let campaigns = [...globalCampaignsCache];
             if (campaigns.length <= 1) return;
-            let skipped = campaigns.shift();
+            let skipped = campaigns.splice(index, 1)[0];
             campaigns.push(skipped);
             saveGlobalCampaigns(campaigns);
         }
@@ -1447,6 +1470,9 @@
             document.getElementById(tabId).classList.add('active');
             if (btn) btn.classList.add('active');
             document.getElementById('headerTitle').innerText = title;
+            if (tabId === 'tabHome') {
+                fetchGlobalCampaigns(); // تەنها دەمێ دەچیتە بەشی کۆمکرنێ داتای نوێ دئانێت
+            }
         }
 
         window.onload = function() {
