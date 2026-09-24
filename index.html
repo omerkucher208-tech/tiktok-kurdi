@@ -325,6 +325,13 @@
             font-size: 30px;
             font-weight: 900;
             color: #ffd700;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .display-username {
@@ -348,21 +355,27 @@
             align-items: center;
         }
 
-        .target-img {
-            width: 160px;
-            height: 160px;
+        .target-img-box {
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            object-fit: cover;
             margin: 8px auto 12px;
             background: linear-gradient(135deg, #7209b7 0%, #f72585 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 55px;
             font-weight: 900;
             color: #ffffff;
             border: 3px solid var(--border-color);
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .target-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .target-username {
@@ -1020,6 +1033,7 @@
         let currentUser = null;
         let isSuccessState = true;
         let pendingActionItem = null;
+        let actionClickCount = 0; // ژماردنا جارێن چوونە سەر لینکێ (دڤێت ببیتە ٢ جار)
         let actionStartTime = 0;
         let globalCampaignsCache = [];
 
@@ -1059,7 +1073,13 @@
                 });
                 let data = await res.json();
                 if (data && data.record) {
-                    globalCampaignsCache = Array.isArray(data.record) ? data.record : [];
+                    if (Array.isArray(data.record)) {
+                        globalCampaignsCache = data.record;
+                    } else if (data.record.campaigns && Array.isArray(data.record.campaigns)) {
+                        globalCampaignsCache = data.record.campaigns;
+                    } else {
+                        globalCampaignsCache = [];
+                    }
                     loadCurrentItem();
                 }
             } catch(e) {}
@@ -1080,7 +1100,6 @@
             loadCurrentItem();
         }
 
-        // فەنکشنی ماستەر بۆ سفرکردنەوەی هەموو شتێک بە یەک کلیک
         async function resetEverythingMaster() {
             let confirmAction = confirm("ئەرێ دڵنیایت دەتەوێت هەموو بەشی کۆمکردن، پۆستەکان و کۆینەکان سفر بکەیتەوە؟");
             if (!confirmAction) return;
@@ -1239,7 +1258,15 @@
             document.getElementById('authScreen').style.display = 'none';
             document.getElementById('appScreen').style.display = 'flex';
             document.getElementById('showUsername').innerText = currentUser.username;
-            document.getElementById('userAvatar').innerText = currentUser.avatarText;
+            
+            // دانانا وێنەیێ ڕاستەقینەیێ پڕۆفایلی بۆ بەکارهێنەری
+            let cleanUser = currentUser.username.replace('@', '');
+            document.getElementById('userAvatar').innerHTML = `
+                <img src="https://www.tiktok.com/api/img/?itemId=&location=&aid=1988&spec=100x100&url=https://p16-va.tiktokcdn.com/img/musically-maliva-obj/tos-maliva-p-0068/${cleanUser}~c5_100x100.jpeg" 
+                     onerror="this.onerror=null; this.parentElement.innerText='${currentUser.avatarText}';" 
+                     alt="avatar">
+            `;
+            
             document.getElementById('starCount').innerText = getDeviceCoins();
             fetchGlobalCampaigns();
         }
@@ -1389,10 +1416,16 @@
 
             let initialTotal = item.initialCount || 5;
             let currentRemaining = item.remaining !== undefined ? item.remaining : initialTotal;
-            let targetLetter = item.avatarText || item.username.replace('@','').charAt(0).toUpperCase() || '👤';
+            let cleanTargetName = item.username.replace('@','');
+            let fallbackLetter = item.avatarText || cleanTargetName.charAt(0).toUpperCase() || '👤';
 
+            // دانانا وێنەیێ ڕاستەقینەیێ پڕۆفایلێ خودانێ پۆستێ
             container.innerHTML = `
-                <div class="target-img">${targetLetter}</div>
+                <div class="target-img-box">
+                    <img src="https://www.tiktok.com/api/img/?itemId=&location=&aid=1988&spec=100x100&url=https://p16-va.tiktokcdn.com/img/musically-maliva-obj/tos-maliva-p-0068/${cleanTargetName}~c5_100x100.jpeg" 
+                         onerror="this.onerror=null; this.parentElement.innerText='${fallbackLetter}';" 
+                         alt="avatar">
+                </div>
                 <div class="target-username">${item.username}</div>
                 <div class="campaign-counter">مایە: ${currentRemaining} ژ ${initialTotal}</div>
                 <div class="action-btns">
@@ -1402,17 +1435,28 @@
             `;
         }
 
+        // پێتڤیە ٢ جار بچیتە سەر لینکێ، ل کلیکا سێیێ کوین دهێن
         function doAction(index) {
             if (!globalCampaignsCache[index]) return;
             let item = globalCampaignsCache[index];
 
+            // ئەگەر کارتی نوی بیت یان دەستپێک بیت
             if (!pendingActionItem || pendingActionItem.index !== index) {
                 pendingActionItem = { item, index };
+                actionClickCount = 1;
                 actionStartTime = Date.now();
                 window.open(item.link, '_blank');
                 return;
             }
 
+            // جاری دووێ یە دچیتە سەر لینکێ
+            if (actionClickCount === 1) {
+                actionClickCount = 2;
+                window.open(item.link, '_blank');
+                return;
+            }
+
+            // ل کلیکا دی، کوین دهێنە حسابکرن
             verifyActionCompletion();
         }
 
@@ -1447,6 +1491,7 @@
 
             saveGlobalCampaigns(campaigns);
             pendingActionItem = null;
+            actionClickCount = 0;
             showSuccessPopup("پیرۆزە!", `+${item.reward} کۆینی T بە سەرکەوتوویی بۆ هەژمارەکەت زیادکرا!`, true);
         }
 
