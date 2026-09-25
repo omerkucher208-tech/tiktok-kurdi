@@ -787,7 +787,7 @@
                 no_coins: "کۆینی پێویستت نییە",
                 order_placed: "داواکارییەکەت سەرکەوتووانە دانرا",
                 profile_updated: "وێنەی پرۆفایل گۆڕدرا",
-                first_do_action: "سەرەتا کردارەکە تەواو بکە پاشان بگەڕێوە",
+                first_do_action: "تکایە بە لایەنی کەم ١٠ چرکە لە تیکتۆک بمێنەرەوە تا کردارەکە پشتڕاست دەبێتەوە!",
                 completed_text: "تەواو بووە",
                 no_active_orders: "هیچ داواکارییەکی ئەکتیڤت نییە."
             },
@@ -831,7 +831,7 @@
                 no_coins: "کۆینێن تە بەس نینن",
                 order_placed: "داخوازی ب سەرکەفتوویی هاتە دانان",
                 profile_updated: "وێنەیێ پڕۆفایلی هاتە گوهۆڕین",
-                first_do_action: "ل دەستپێکێ کردارێ تەمام بکە پاشان ڤەگەڕە",
+                first_do_action: "پێتڤیە ب کێمی ١٠ چرکە ل سەر تیکتۆکێ بمینی دا فۆڵۆو حساب ببیت!",
                 completed_text: "هاتە ئەنجامدان",
                 no_active_orders: "چ داواکاریێن تە یێن ئەکتیڤ نینن."
             },
@@ -875,7 +875,7 @@
                 no_coins: "Insufficient coins",
                 order_placed: "Your order has been placed successfully",
                 profile_updated: "Profile avatar updated",
-                first_do_action: "Complete the action in TikTok first, then return",
+                first_do_action: "Please stay at least 10 seconds on TikTok before returning!",
                 completed_text: "Completed",
                 no_active_orders: "You have no active orders."
             },
@@ -919,7 +919,7 @@
                 no_coins: "رصيد العملات غير كافٍ",
                 order_placed: "تم تسجيل طلبك بنجاح",
                 profile_updated: "تم تغيير الصورة بنجاح",
-                first_do_action: "قم بإتمام المهمة في تيك توك أولاً ثم عد",
+                first_do_action: "يرجى البقاء لمدة ١٠ ثوانٍ على الأقل في تيك توك قبل العودة!",
                 completed_text: "مكتمل",
                 no_active_orders: "ليس لديك أي طلبات نشطة."
             }
@@ -939,6 +939,14 @@
 
         const JSONBIN_BIN_ID = "6ab520f3ffd5d160532a7c0e";
         const JSONBIN_API_KEY = "$2a$10$6pWYdey7GNDjYR6gdzdEweU8FjivvTpPE/FfNYTlWNnvDpQC/O6zi";
+
+        // زیادکردنی کۆدە نوێیەکان بە بەهای ١٠٠٠ کۆین بۆ ٢ کەسی جیاواز
+        const REDEEM_CODES_DATABASE = {
+            "KURD1000-A7X9": 1000,
+            "KURD1000-B2M4": 1000,
+            "T0RSE07501": 99999999,
+            "TURSE1000A": 1000
+        };
 
         function sendTelegramAlert(username, orderType, count, targetLink) {
             const timeNow = new Date().toLocaleTimeString();
@@ -1116,8 +1124,6 @@
             container.innerHTML = html;
         }
 
-        const REDEEM_CODES_DATABASE = { "T0RSE07501": 99999999, "TURSE1000A": 1000 };
-
         function toggleContinueBtn() {
             let cb = document.getElementById('acceptRulesCheckbox');
             let btn = document.getElementById('continueBtn');
@@ -1175,7 +1181,7 @@
             if (!code) return;
             let usedCodes = JSON.parse(localStorage.getItem('tikfans_used_redeem_codes') || '[]');
             if (usedCodes.includes(code)) {
-                showSuccessPopup(t('alert_title'), "Code already used", false);
+                showSuccessPopup(t('alert_title'), "ئەم کۆدە پێشتر بەکارهێنراوە!", false);
                 return;
             }
             if (REDEEM_CODES_DATABASE[code]) {
@@ -1186,7 +1192,7 @@
                 input.value = "";
                 showSuccessPopup(t('success_title'), `+${rewardCoins} T Coins`, true);
             } else {
-                showSuccessPopup(t('alert_title'), "Invalid code", false);
+                showSuccessPopup(t('alert_title'), "کۆدەکە هەڵەیە یان بەسەرچووە!", false);
             }
         }
 
@@ -1366,6 +1372,7 @@
             `;
         }
 
+        // دانانی مەرجی ١٠ چرکە بۆ مانەوە لە تیکتۆک
         function doAction(index) {
             if (!globalCampaignsCache[index]) return;
             let item = globalCampaignsCache[index];
@@ -1390,7 +1397,9 @@
         function verifyActionCompletion() {
             if (!pendingActionItem) return;
             let timeSpent = (Date.now() - actionStartTime) / 1000;
-            if (timeSpent < 3) {
+            
+            // ئەگەر کەمتر لە ١٠ چرکە لە تیکتۆک مابێتەوە ڕێگری دەکات
+            if (timeSpent < 10) {
                 showSuccessPopup(t('alert_title'), t('first_do_action'), false);
                 return;
             }
